@@ -8,3 +8,12 @@ export function removeItemFromArray(item, array) {
   array.splice(indexToRemove, 1);
   //   console.log(array);
 }
+
+export function editItemDetail(item, detail) {
+  //name
+  // priority
+  //
+
+  console.log(item);
+  console.log(detail);
+}

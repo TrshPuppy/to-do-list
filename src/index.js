@@ -17,7 +17,11 @@ myList.appendItemToListArray(todo2);
 
 defaultProject.appendList(myList);
 defaultProject.appendList(myList2);
-console.log(defaultProject);
+// console.log(defaultProject);
 
 myList.removeItemFromListArray(todoItem);
 defaultProject.removeList(myList);
+
+// defaultProject.editDetails(defaultProject.name);
+defaultProject.name = "new name";
+console.log(defaultProject);
