@@ -1,5 +1,5 @@
-import Project from "./projectClass";
-import List from "./utilities";
+import Project from "./classes";
+import { List } from "./classes";
 
 const defaultProject = new Project("default");
 console.log(defaultProject.list);
