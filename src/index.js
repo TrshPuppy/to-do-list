@@ -6,6 +6,7 @@ const defaultProject = new Project("default");
 // console.log(defaultProject.list);
 
 const myList = new List("first list");
+const myList2 = new List("2nd list");
 // console.log(myList);
 
 const todoItem = new ToDo("water the lawn");
@@ -15,6 +16,8 @@ myList.appendItemToListArray(todoItem);
 myList.appendItemToListArray(todo2);
 
 defaultProject.appendList(myList);
+defaultProject.appendList(myList2);
 console.log(defaultProject);
 
 myList.removeItemFromListArray(todoItem);
+defaultProject.removeList(myList);

@@ -14,7 +14,7 @@ export default class Project {
   }
 
   removeList(list) {
-    removeItemFromArray(item, this.lists);
+    removeItemFromArray(list, this.lists);
   }
 }
 
