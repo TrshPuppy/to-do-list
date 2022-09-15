@@ -3,7 +3,9 @@ export default function appendItemToArray(item, array) {
   return;
 }
 
-// export function removeItemFromArray(item, array) {
-//   let itemToRemove = array.find;
-//   console.log(item);
-// }
+export function removeItemFromArray(item, array) {
+  let indexToRemove = array.indexOf(item);
+
+  array.splice(indexToRemove);
+  //   console.log(array);
+}

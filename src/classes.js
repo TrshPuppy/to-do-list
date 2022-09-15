@@ -1,4 +1,4 @@
-import appendItemToArray from "./utilities";
+import appendItemToArray, { removeItemFromArray } from "./utilities";
 // import { removeItemFromArray } from "./utilities";
 
 export default class Project {
@@ -26,5 +26,18 @@ export class List {
 
   appendItemToListArray(item) {
     appendItemToArray(item, this.listItems);
+  }
+
+  removeItemFromListArray(item) {
+    removeItemFromArray(item, this.listItems);
+  }
+}
+
+export class ToDo {
+  constructor(name) {
+    this.name = name;
+    //priority
+    //name
+    //
   }
 }
