@@ -1,0 +1,80 @@
+To Do List: 
+    basic requirements:
+        user can create projects
+        each project has a unique to do List
+        user can choose which project to do's go into
+
+    Project object: object
+        stores lists as objects
+        can be created
+        can be deleted
+        can be edited
+
+    To do list object: array
+        stores items to do
+            each to do:
+                can be created
+                edited
+                deleted
+                added to a list
+                marked done
+                marked not done
+                can be given a priority
+
+    Functions:
+        create list item
+        edit list item
+        delete list item
+        add list item to list
+
+        crate list
+        edit lists
+        delete lists
+        add lists to projects
+
+        create project
+        edit project
+        delete project
+        add project to user instance
+
+    shared functions:
+        setting priority
+        deleting from UI 
+        add to UI
+
+
+
+
+
+
+
+
+
+
+
+
+    animal class: walk on 4 legs, poop
+        cat object: walk on 4 legs, poop, breath air
+        dog object : walk on 4 legs, poop, breath air
+        can rap battle
+
+    human class: wlak on 2 legs, poop
+        male man oject, poop, breath air, walks on 2 legs
+        can rap battle
+
+
+    composition:
+        rap battle object
+
+        walks on 4 legs object(?)
+
+        walks on 2 legs object
+         
+         breath air object
+
+         poop object
+
+         cat = 4legs, can breathe, can poop
+         
+         human = 2 legs, can breath, can poop, rap battle
+         
