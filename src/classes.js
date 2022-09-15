@@ -16,9 +16,9 @@ export default class Project {
     removeItemFromArray(list, this.lists);
   }
 
-  editDetails(detailType) {
-    editItemDetail(this, detailType);
-  }
+  //   editDetails(detailType) {
+  //     editItemDetail(this, detailType);
+  //   }
 }
 
 export class List {
