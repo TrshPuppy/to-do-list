@@ -52,4 +52,10 @@ export class Element {
     this.attributes = {};
     this.children = [];
   }
+
+  buildElement() {
+    const newElement = document.createElement(this.elementType);
+    return newElement;
+    // const div = document.createElement('div');
+  }
 }

@@ -1,10 +1,14 @@
-import loadHTML from "./utilities";
+// Imports
+import loadDefaultHTML from "./utilities";
 import Project from "./classes";
 import { List } from "./classes";
 import { ToDo } from "./classes";
 import { setPriority } from "./utilities";
 
-loadHTML();
+// Globals
+const contentDiv = document.querySelector(".content");
+
+contentDiv.appendChild(loadDefaultHTML().buildElement());
 
 //testing shite:
 

@@ -1,5 +1,9 @@
-export default function loadHTLM() {
-  console.log("hey u friken loaded u badass!");
+import { Element } from "./classes";
+
+export default function loadDefaultHTML() {
+  const defaultProjectDiv = new Element("div");
+
+  return defaultProjectDiv;
 }
 
 export function appendItemToArray(item, array) {
