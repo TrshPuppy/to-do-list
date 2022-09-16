@@ -1,4 +1,5 @@
-import appendItemToArray, { removeItemFromArray } from "./utilities";
+import { appendItemToArray } from "./utilities";
+import { removeItemFromArray } from "./utilities";
 import { editItemDetail } from "./utilities";
 export default class Project {
   constructor(name) {
@@ -16,11 +17,10 @@ export default class Project {
     removeItemFromArray(list, this.lists);
   }
 
-  //   editDetails(detailType) {
-  //     editItemDetail(this, detailType);
-  //   }
+  editDetails(detailType) {
+    editItemDetail(this, detailType);
+  }
 }
-
 export class List {
   constructor(listName) {
     this.name = listName;
@@ -36,7 +36,6 @@ export class List {
     removeItemFromArray(item, this.listItems);
   }
 }
-
 export class ToDo {
   constructor(name) {
     this.name = name;
@@ -44,5 +43,13 @@ export class ToDo {
     //priority
     //name
     //
+  }
+}
+
+export class Element {
+  constructor(elementType) {
+    this.elementType = elementType;
+    this.attributes = {};
+    this.children = [];
   }
 }

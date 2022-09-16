@@ -1,4 +1,8 @@
-export default function appendItemToArray(item, array) {
+export default function loadHTLM() {
+  console.log("hey u friken loaded u badass!");
+}
+
+export function appendItemToArray(item, array) {
   array.push(item);
   return;
 }
@@ -15,4 +19,9 @@ export function editItemDetail(item, detail) {
 
   console.log(item);
   console.log(detail);
+}
+
+export function setPriority(item, priority) {
+  item.priority = priority;
+  return;
 }
