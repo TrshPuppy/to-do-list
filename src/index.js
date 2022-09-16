@@ -8,7 +8,11 @@ import { setPriority } from "./utilities";
 // Globals
 const contentDiv = document.querySelector(".content");
 
-contentDiv.appendChild(loadDefaultHTML().buildElement());
+contentDiv.appendChild(
+  loadDefaultHTML()
+    .setAttributes({ class: "project", id: "default" })
+    .buildElement()
+);
 
 //testing shite:
 

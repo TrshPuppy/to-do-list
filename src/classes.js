@@ -54,8 +54,21 @@ export class Element {
   }
 
   buildElement() {
+    // Create element in DOM
     const newElement = document.createElement(this.elementType);
+
+    // Add attributes to element
+    for (const attribute in this.attributes) {
+      console.log(this.attributes[attribute]);
+      newElement.setAttribute(attribute, this.attributes[attribute]);
+    }
+
     return newElement;
-    // const div = document.createElement('div');
+  }
+
+  setAttributes(object) {
+    this.attributes = object;
+
+    return this;
   }
 }
