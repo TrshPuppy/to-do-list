@@ -20,7 +20,23 @@ export default class Project {
   editDetails(detailType) {
     editItemDetail(this, detailType);
   }
+
+  buildIntoHTML() {
+    const thisProjectElement = new Element("div").setAttributes({
+      class: "project",
+      id: `${this.name}`,
+    });
+
+    return thisProjectElement;
+  }
+
+  buildChildren() {
+    for (const list of this.lists) {
+      list.buildListIntoElement().buildElement();
+    }
+  }
 }
+
 export class List {
   constructor(listName) {
     this.name = listName;
@@ -34,6 +50,13 @@ export class List {
 
   removeItemFromListArray(item) {
     removeItemFromArray(item, this.listItems);
+  }
+
+  buildListIntoElement() {
+    const thisListElement = new Element("ul").setAttributes({
+      class: `${this.name}`,
+    });
+    return thisListElement;
   }
 }
 export class ToDo {
@@ -55,20 +78,29 @@ export class Element {
 
   buildElement() {
     // Create element in DOM
-    const newElement = document.createElement(this.elementType);
+    const realBoi = document.createElement(this.elementType);
 
     // Add attributes to element
     for (const attribute in this.attributes) {
-      console.log(this.attributes[attribute]);
-      newElement.setAttribute(attribute, this.attributes[attribute]);
+      realBoi.setAttribute(attribute, this.attributes[attribute]);
     }
 
-    return newElement;
+    // Append children?
+    for (const virtualBoi of this.children) {
+      // append real children to the real DOM element
+      realBoi.appendChild(virtualBoi.buildElement());
+    }
+    return realBoi;
   }
 
   setAttributes(object) {
-    this.attributes = object;
-
+    Object.assign(this.attributes, object);
     return this;
   }
+
+  addChild(element) {
+    this.children.push(element);
+  }
+
+  buildElementChildren() {}
 }
