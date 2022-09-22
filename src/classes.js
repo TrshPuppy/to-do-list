@@ -43,7 +43,9 @@ export class List {
   buildVirtualBoi() {
     return this.listItems.reduce(
       (virtualUl, toDo) => virtualUl.addChild(toDo.buildVirtualBoi()),
-      new Element("ul")
+      new Element("ul").setAttributes({
+        id: this.name,
+      })
     );
   }
 
@@ -66,7 +68,7 @@ export class ToDo {
   buildVirtualBoi() {
     const virtualBoi = new Element("li");
     virtualBoi
-      .addChild(new Element("h1").setTextContent("this.name"))
+      .addChild(new Element("h1").setTextContent(this.name))
       .addChild(new Element("h2").setTextContent(`Priority: ${this.priority}`))
       .addChild(new Element("button").setTextContent("Set Priority"))
       .addChild(new Element("button").setTextContent("Mark Done"));
