@@ -59,10 +59,11 @@ export class List {
 }
 
 export class ToDo {
-  constructor(name, priority, isCompleted) {
+  constructor(name, priority, isCompleted, date) {
     this.name = name;
     this.priority = priority;
     this.isCompleted = isCompleted;
+    this.date = date;
   }
 
   buildVirtualBoi() {
