@@ -2,10 +2,11 @@ import { appendItemToArray } from "./utilities";
 import { removeItemFromArray } from "./utilities";
 import { editItemDetail } from "./utilities";
 export default class Project {
-  constructor(name) {
+  constructor(name, id) {
     this.name = name;
+    this.id = id;
     this.lists = [];
-    this.priority;
+    // this.priority;
   }
 
   appendList(list) {
@@ -21,19 +22,14 @@ export default class Project {
     editItemDetail(this, detailType);
   }
 
-  buildIntoHTML() {
-    const thisProjectElement = new Element("div").setAttributes({
-      class: "project",
-      id: `${this.name}`,
-    });
-
-    return thisProjectElement;
-  }
-
-  buildChildren() {
-    for (const list of this.lists) {
-      list.buildListIntoElement().buildElement();
-    }
+  buildVirtualBoi() {
+    return this.lists.reduce(
+      (virtualProject, list) => virtualProject.addChild(list.buildVirtualBoi()),
+      new Element("div").setAttributes({
+        class: "project",
+        id: `Project-${this.id}`,
+      })
+    );
   }
 }
 
@@ -44,6 +40,13 @@ export class List {
     this.priority;
   }
 
+  buildVirtualBoi() {
+    return this.listItems.reduce(
+      (virtualUl, toDo) => virtualUl.addChild(toDo.buildVirtualBoi()),
+      new Element("ul")
+    );
+  }
+
   appendItemToListArray(item) {
     appendItemToArray(item, this.listItems);
   }
@@ -51,21 +54,24 @@ export class List {
   removeItemFromListArray(item) {
     removeItemFromArray(item, this.listItems);
   }
-
-  buildListIntoElement() {
-    const thisListElement = new Element("ul").setAttributes({
-      class: `${this.name}`,
-    });
-    return thisListElement;
-  }
 }
+
 export class ToDo {
-  constructor(name) {
+  constructor(name, priority, isCompleted) {
     this.name = name;
-    this.priority;
-    //priority
-    //name
-    //
+    this.priority = priority;
+    this.isCompleted = isCompleted;
+  }
+
+  buildVirtualBoi() {
+    const virtualBoi = new Element("li");
+    virtualBoi
+      .addChild(new Element("h1").setTextContent("this.name"))
+      .addChild(new Element("h2").setTextContent(`Priority: ${this.priority}`))
+      .addChild(new Element("button").setTextContent("Set Priority"))
+      .addChild(new Element("button").setTextContent("Mark Done"));
+
+    return virtualBoi;
   }
 }
 
@@ -85,10 +91,14 @@ export class Element {
       realBoi.setAttribute(attribute, this.attributes[attribute]);
     }
 
-    // Append children?
-    for (const virtualBoi of this.children) {
-      // append real children to the real DOM element
-      realBoi.appendChild(virtualBoi.buildElement());
+    // Append children? Append text?
+    if (this.text === undefined) {
+      for (const virtualBoi of this.children) {
+        realBoi.appendChild(virtualBoi.buildElement());
+      }
+    } else {
+      const realText = document.createTextNode(this.text);
+      realBoi.appendChild(realText);
     }
     return realBoi;
   }
@@ -99,8 +109,15 @@ export class Element {
   }
 
   addChild(element) {
+    this.text = undefined;
     this.children.push(element);
+
+    return this;
   }
 
-  buildElementChildren() {}
+  setTextContent(string) {
+    this.children = [];
+    this.text = string;
+    return this;
+  }
 }

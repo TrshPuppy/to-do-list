@@ -9,28 +9,31 @@ import { setPriority } from "./utilities";
 const contentDiv = document.querySelector(".content");
 
 // Create default project on load:
-const defaultProject = new Project("default");
-contentDiv.appendChild(defaultProject.buildIntoHTML().buildElement());
+const defaultProject = new Project("default", 1);
 
 //testing shite:
 
 const myList = new List("first list");
 // const myList2 = new List("2nd list");
 
-const todoItem = new ToDo("water the lawn");
-const todo2 = new ToDo("Eat a watermelon");
+const toDoItem = new ToDo("water the lawn", 3, false);
 
-myList.appendItemToListArray(todoItem);
+const todo2 = new ToDo("Eat a watermelon", 2, true);
+
+myList.appendItemToListArray(toDoItem);
 myList.appendItemToListArray(todo2);
 
 defaultProject.appendList(myList);
 
+const buildDefault = defaultProject.buildVirtualBoi();
+console.log(buildDefault);
+contentDiv.appendChild(buildDefault.buildElement());
 // defaultProject.appendList(myList2);
 
 // defaultProject.buildChildren();
 
 //some priority button gets clicked:
 //event listener => click { }
-setPriority(todoItem, 2);
+// setPriority(toDoItem, 2);
 
-console.log(defaultProject);
+// console.log(defaultProject);
