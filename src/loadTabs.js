@@ -1,4 +1,14 @@
-import { Element } from "../src/classes";
+import { Element } from "./classes";
+import {
+  startOfToday,
+  startOfWeek,
+  endOfWeek,
+  endOfToday,
+  startOfMonth,
+  endOfMonth,
+  startOfYear,
+  endOfYear,
+} from "date-fns";
 
 // Returns a built element based on interval and projectsArray[]:
 function buildTab(projectsArray, interval) {
@@ -22,44 +32,39 @@ function buildTab(projectsArray, interval) {
 
 // Creates interval of range within today to be used by buildTab()
 export default function loadToday(projectsArray) {
-  const now = new Date();
-
   const interval = {
-    start: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
-    end: new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      23,
-      59,
-      59,
-      999
-    ),
+    start: startOfToday(),
+    end: endOfToday(),
   };
 
   return buildTab(projectsArray, interval);
 }
 
-// Cretes interval of range within the next week to be used in buildTab()
+// Creates interval of range within the next week to be used in buildTab()
 export function loadWeek(projectsArray) {
   const now = new Date();
 
   const interval = {
-    start: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
-    end: new Date(now.getFullYear(), now.getM),
+    start: startOfWeek(now),
+    end: endOfWeek(now),
   };
+
+  return buildTab(projectsArray, interval);
 }
 
-// Loop through Librarian.projectsarray()
-//   ea project: get tasks within this interval
-// For the date within the interval:
+export function loadMonth(projectsArray) {
+  const now = new Date();
 
-// isWithinInterval(new Date(2014, 0, 3), {
-//     start: new Date(2014, 0, 1),
-//     end: new Date(2014, 0, 7)
-//   })
-//   //=> true
+  const interval = { start: startOfMonth(now), end: endOfMonth(now) };
+  return buildTab(projectsArray, interval);
+}
 
+export function loadYear(projectsArray) {
+  const now = new Date();
+  const interval = { start: startOfYear(now), end: endOfYear(now) };
+
+  return buildTab(projectsArray, interval);
+}
 //Today HTML:
 /*
 .content

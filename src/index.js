@@ -1,6 +1,6 @@
 // Imports
-import loadToday from "./today";
-import loadWeek from "./today";
+import loadToday from "./loadTabs";
+import loadWeek from "./loadTabs";
 import loadDefaultHTML from "./utilities";
 import Project from "./classes";
 import { List } from "./classes";
