@@ -1,10 +1,12 @@
 // Imports
 import loadToday from "./today";
+import loadWeek from "./today";
 import loadDefaultHTML from "./utilities";
 import Project from "./classes";
 import { List } from "./classes";
 import { ToDo } from "./classes";
 import { setPriority } from "./utilities";
+import { Librarian } from "./classes";
 
 // Globals
 const contentDiv = document.querySelector(".content");
@@ -16,24 +18,25 @@ const defaultProject = new Project("default", 1);
 
 const myList = new List("first list");
 
-const toDoItem = new ToDo(
-  "water the lawn",
-  3,
-  false,
-  new Date("4 december 2023")
-);
+const toDoItem = new ToDo("water the lawn", 3, false);
 console.log(toDoItem.date);
 
-const todo2 = new ToDo("Eat a watermelon", 2, true);
+const todo2 = new ToDo("Eat a watermelon", 2, true, new Date());
 
 myList.appendItemToListArray(toDoItem);
 myList.appendItemToListArray(todo2);
 
 defaultProject.appendList(myList);
 
+Librarian.addProject(defaultProject);
+
+const today = loadToday(Librarian.getAllProjects());
+console.log(today);
+
 const buildDefault = defaultProject.buildVirtualBoi();
 console.log(buildDefault);
-contentDiv.appendChild(buildDefault.buildElement());
+contentDiv.appendChild(today.buildElement());
+
 // defaultProject.appendList(myList2);
 
 // defaultProject.buildChildren();

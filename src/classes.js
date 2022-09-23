@@ -1,6 +1,7 @@
 import { appendItemToArray } from "./utilities";
 import { removeItemFromArray } from "./utilities";
 import { editItemDetail } from "./utilities";
+import { isWithinInterval } from "date-fns";
 export default class Project {
   constructor(name, id) {
     this.name = name;
@@ -31,6 +32,12 @@ export default class Project {
       })
     );
   }
+
+  getAllTasksInInterval(interval) {
+    // if(isWithinInterval(new Date(), interval));
+
+    return this.lists.flatMap((list) => list.getAllToDosInInterval(interval));
+  }
 }
 
 export class List {
@@ -55,6 +62,12 @@ export class List {
 
   removeItemFromListArray(item) {
     removeItemFromArray(item, this.listItems);
+  }
+
+  getAllToDosInInterval(interval) {
+    return this.listItems.filter(
+      (toDo) => !toDo.date || isWithinInterval(toDo.date, interval)
+    );
   }
 }
 
@@ -122,5 +135,17 @@ export class Element {
     this.children = [];
     this.text = string;
     return this;
+  }
+}
+
+export class Librarian {
+  static projectsArray = [];
+
+  static getAllProjects() {
+    return Librarian.projectsArray;
+  }
+
+  static addProject(project) {
+    Librarian.projectsArray.push(project);
   }
 }
