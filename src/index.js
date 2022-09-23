@@ -15,6 +15,8 @@ import { Librarian } from "./classes";
 // Globals
 const contentDiv = document.querySelector(".content");
 
+console.log("kermit is the mfn man");
+
 // Create default project on load:
 const defaultProject = new Project("default", 1);
 
