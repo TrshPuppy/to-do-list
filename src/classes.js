@@ -11,8 +11,7 @@ export default class Project {
   }
 
   appendList(list) {
-    appendItemToArray(list, this.lists);
-    return;
+    this.lists.push(list);
   }
 
   removeList(list) {
@@ -34,8 +33,6 @@ export default class Project {
   }
 
   getAllTasksInInterval(interval) {
-    // if(isWithinInterval(new Date(), interval));
-
     return this.lists.flatMap((list) => list.getAllToDosInInterval(interval));
   }
 }
@@ -57,7 +54,7 @@ export class List {
   }
 
   appendItemToListArray(item) {
-    appendItemToArray(item, this.listItems);
+    this.listItems.push(item);
   }
 
   removeItemFromListArray(item) {
@@ -89,6 +86,8 @@ export class ToDo {
 
     return virtualBoi;
   }
+
+  // edit: name, priority, completed, date
 }
 
 export class Element {

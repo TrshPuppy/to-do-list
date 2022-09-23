@@ -5,17 +5,13 @@ import {
   loadMonth,
   loadYear,
 } from "./loadTabs";
-import loadDefaultHTML from "./utilities";
 import Project from "./classes";
 import { List } from "./classes";
 import { ToDo } from "./classes";
-import { setPriority } from "./utilities";
 import { Librarian } from "./classes";
 
 // Globals
 const contentDiv = document.querySelector(".content");
-
-console.log("kermit is the mfn man!");
 
 // Create default project on load:
 const defaultProject = new Project("default", 1);
@@ -39,13 +35,3 @@ console.log(today);
 const buildDefault = defaultProject.buildVirtualBoi();
 console.log(buildDefault);
 contentDiv.appendChild(today.buildElement());
-
-// defaultProject.appendList(myList2);
-
-// defaultProject.buildChildren();
-
-//some priority button gets clicked:
-//event listener => click { }
-// setPriority(toDoItem, 2);
-
-// console.log(defaultProject);
