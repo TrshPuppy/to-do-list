@@ -15,11 +15,46 @@ import displayProjectModal from "./UIhandlers";
 // Globals:
 const contentDiv = document.querySelector(".content");
 const projectBtn = document.querySelector(".add-project-btn");
+let addProjectForm;
+
+// Functions:
+function handleAddProject() {
+  addProjectForm = displayProjectModal();
+  contentDiv.appendChild(addProjectForm);
+
+  const projectSubmitBtn = document.querySelector("#project-form-btn");
+  projectSubmitBtn.addEventListener("click", handleNewProjectSubmit);
+
+  // Get user input
+  // checkInputValidity();
+  // Create Project from class
+
+  // Append project to DOM
+}
+
+function handleNewProjectSubmit() {
+  // Get the data
+  let projectFormInput = document.querySelector("#project-name");
+
+  // Make project and give to Librarian
+  const newProject = new Project(projectFormInput.value);
+  Librarian.addProject(newProject);
+
+  console.log(Librarian);
+
+  // Rebuild UI
+  reBuildUI();
+}
 
 // Event Listeners:
-projectBtn.addEventListener("click", () => {
-  displayProjectModal(contentDiv);
-});
+projectBtn.addEventListener("click", handleAddProject);
+
+// () => {
+//   addProjectForm = displayProjectModal();
+//   contentDiv.appendChild(addProjectForm);
+
+//   handleFormInput(addProjectForm);
+// });
 
 /*
 // Create default project on load:

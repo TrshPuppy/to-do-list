@@ -1,7 +1,7 @@
 import { Element } from "./classes";
 
-export default function displayProjectModal(HTMLparent) {
-  const projectModal = new Element("form")
+export default function displayProjectModal() {
+  return new Element("form")
     .setAttributes({ class: "form", id: "add-project-form" })
     .addChild(
       new Element("input").setAttributes({
@@ -22,7 +22,8 @@ export default function displayProjectModal(HTMLparent) {
         .setTextContent("Submit")
     )
     .buildElement();
+  //const projectFormBtn = document.querySelector("#project-form-btn");
 
-  HTMLparent.appendChild(projectModal);
-  //   return projectModal;
+  //   projectFormBtn.addEventListener("click", () => {
+  //     projectModal.parentNode.removeChild(projectModal);
 }
