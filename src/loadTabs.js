@@ -65,6 +65,7 @@ export function loadYear(projectsArray) {
 
   return buildTab(projectsArray, interval);
 }
+
 //Today HTML:
 /*
 .content

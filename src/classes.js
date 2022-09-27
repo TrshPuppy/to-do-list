@@ -1,6 +1,5 @@
 import { appendItemToArray } from "./utilities";
 import { removeItemFromArray } from "./utilities";
-import { editItemDetail } from "./utilities";
 import { isWithinInterval } from "date-fns";
 export default class Project {
   constructor(name, id) {
@@ -87,6 +86,7 @@ export class ToDo {
     return virtualBoi;
   }
 
+  editDueDate() {}
   // edit: name, priority, completed, date
 }
 

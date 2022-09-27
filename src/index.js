@@ -10,9 +10,18 @@ import { List } from "./classes";
 import { ToDo } from "./classes";
 import { Librarian } from "./classes";
 
-// Globals
-const contentDiv = document.querySelector(".content");
+import displayProjectModal from "./UIhandlers";
 
+// Globals:
+const contentDiv = document.querySelector(".content");
+const projectBtn = document.querySelector(".add-project-btn");
+
+// Event Listeners:
+projectBtn.addEventListener("click", () => {
+  displayProjectModal(contentDiv);
+});
+
+/*
 // Create default project on load:
 const defaultProject = new Project("default", 1);
 
@@ -35,3 +44,5 @@ console.log(today);
 const buildDefault = defaultProject.buildVirtualBoi();
 console.log(buildDefault);
 contentDiv.appendChild(today.buildElement());
+
+*/
