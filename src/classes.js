@@ -36,7 +36,7 @@ export default class Project {
               class: "add-list-btn",
               id: `${this.name}-add-list-btn`,
             })
-            .appendEventListener("click", handleAddList)
+            .appendEventListener("click", (e) => handleAddList(e, this))
             .setTextContent("Add list")
         )
     );

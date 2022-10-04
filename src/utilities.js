@@ -16,8 +16,7 @@ export function rebuildUI() {
 
   for (const project of projectsArray) {
     const virtualProject = project.buildVirtualBoi();
-    console.log(virtualProject);
+
     contentDiv.appendChild(virtualProject.buildElement());
   }
-  console.log(Librarian.projectsArray);
 }

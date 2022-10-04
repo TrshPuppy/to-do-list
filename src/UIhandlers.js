@@ -1,4 +1,5 @@
 import { Element } from "./classes";
+import { handleNewListSubmit } from "./index";
 
 export default function displayProjectModal() {
   return new Element("form")
@@ -24,7 +25,7 @@ export default function displayProjectModal() {
     .buildElement();
 }
 
-export function displayListForm() {
+export function displayListForm(project) {
   return new Element("form")
     .setAttributes({ class: "form", id: "add-list-form" })
     .addChild(
@@ -43,6 +44,7 @@ export function displayListForm() {
           class: "form-btn",
           id: "list-form-btn",
         })
+        .appendEventListener("click", (e) => handleNewListSubmit(e, project))
         .setTextContent("Submit")
     )
     .buildElement();

@@ -27,10 +27,10 @@ function handleNewProjectSubmit() {
 
   // Make project and give to Librarian
   const newProject = new Project(projectFormInput.value);
-  const newList = new List(projectFormInput.value);
-  newProject.appendList(newList);
-  const toDo1 = new ToDo("bake a cake", 2, false);
-  newList.appendItemToListArray(toDo1);
+  // const newList = new List(projectFormInput.value);
+  // newProject.appendList(newList);
+  // const toDo1 = new ToDo("bake a cake", 2, false);
+  // newList.appendItemToListArray(toDo1);
 
   Librarian.addProject(newProject);
 
@@ -49,9 +49,18 @@ function handleAddProject() {
   });
 }
 
-export function handleAddList() {
-  const newListForm = displayListForm();
-  contentDiv.appendChild(newListForm);
+export function handleNewListSubmit(e, project) {
+  let listFormInput = document.querySelector("#list-name");
+  const newList = new List(listFormInput.value);
+  project.appendList(newList);
+
+  rebuildUI();
+  console.log(Librarian.getAllProjects());
+}
+
+export function handleAddList(e, project) {
+  const newListForm = displayListForm(project);
+  e.target.parentElement.appendChild(newListForm);
 }
 
 // Event Listeners:
