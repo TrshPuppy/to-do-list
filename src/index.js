@@ -16,8 +16,6 @@ import { rebuildUI } from "./utilities";
 // Globals:
 const contentDiv = document.querySelector(".content");
 const projectBtn = document.querySelector(".add-project-btn");
-const addListBtn = document.querySelector(".add-list-btn");
-let listBtnExists = false;
 let addProjectForm;
 
 //Load Default UI
@@ -52,14 +50,12 @@ function handleAddProject() {
 }
 
 export function handleAddList() {
-  console.log("hi");
-  //   addListForm = displayListForm();
-  //
+  const newListForm = displayListForm();
+  contentDiv.appendChild(newListForm);
 }
 
 // Event Listeners:
 projectBtn.addEventListener("click", handleAddProject);
-// addListBtn.addEventListener("click", handleAddList);
 
 // () => {
 //   addProjectForm = displayProjectModal();
