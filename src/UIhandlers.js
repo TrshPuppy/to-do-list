@@ -22,8 +22,28 @@ export default function displayProjectModal() {
         .setTextContent("Submit")
     )
     .buildElement();
-  //const projectFormBtn = document.querySelector("#project-form-btn");
+}
 
-  //   projectFormBtn.addEventListener("click", () => {
-  //     projectModal.parentNode.removeChild(projectModal);
+export function displayListForm() {
+  return new Element("form")
+    .setAttributes({ class: "form", id: "add-list-form" })
+    .addChild(
+      new Element("input").setAttributes({
+        type: "text",
+        class: "form-input",
+        id: "list-name",
+        placeholder: "Name your list",
+        required: "required",
+      })
+    )
+    .addChild(
+      new Element("button")
+        .setAttributes({
+          type: "button",
+          class: "form-btn",
+          id: "list-form-btn",
+        })
+        .setTextContent("Submit")
+    )
+    .buildElement();
 }

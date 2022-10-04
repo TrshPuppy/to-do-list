@@ -1,4 +1,4 @@
-import { appendItemToArray } from "./utilities";
+import { handleAddList } from "./index";
 import { removeItemFromArray } from "./utilities";
 import { isWithinInterval } from "date-fns";
 export default class Project {
@@ -24,10 +24,21 @@ export default class Project {
   buildVirtualBoi() {
     return this.lists.reduce(
       (virtualProject, list) => virtualProject.addChild(list.buildVirtualBoi()),
-      new Element("div").setAttributes({
-        class: "project",
-        id: `Project-${this.id}`,
-      })
+      new Element("div")
+        .setAttributes({
+          class: "project",
+          id: `Project-${this.id}`,
+        })
+        .addChild(
+          new Element("button")
+            .setAttributes({
+              type: "button",
+              class: "add-list-btn",
+              id: `${this.name}-add-list-btn`,
+            })
+            .appendEventListener("click", handleAddList)
+            .setTextContent("Add list")
+        )
     );
   }
 
@@ -95,6 +106,7 @@ export class Element {
     this.elementType = elementType;
     this.attributes = {};
     this.children = [];
+    this.eventListeners = {};
   }
 
   buildElement() {
@@ -104,6 +116,13 @@ export class Element {
     // Add attributes to element
     for (const attribute in this.attributes) {
       realBoi.setAttribute(attribute, this.attributes[attribute]);
+    }
+
+    // Add event listeners:
+    for (const ev in this.eventListeners) {
+      this.eventListeners[ev].forEach((cb) => {
+        realBoi.addEventListener(ev, cb);
+      });
     }
 
     // Append children? Append text?
@@ -133,6 +152,15 @@ export class Element {
   setTextContent(string) {
     this.children = [];
     this.text = string;
+    return this;
+  }
+
+  appendEventListener(event, callback) {
+    if (this.eventListeners[event]) {
+      this.eventListeners[event].push(callback);
+    } else {
+      this.eventListeners[event] = [callback];
+    }
     return this;
   }
 }

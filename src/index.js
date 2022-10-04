@@ -9,45 +9,57 @@ import Project from "./classes";
 import { List } from "./classes";
 import { ToDo } from "./classes";
 import { Librarian } from "./classes";
-
 import displayProjectModal from "./UIhandlers";
+import { displayListForm } from "./UIhandlers";
+import { rebuildUI } from "./utilities";
 
 // Globals:
 const contentDiv = document.querySelector(".content");
 const projectBtn = document.querySelector(".add-project-btn");
+const addListBtn = document.querySelector(".add-list-btn");
+let listBtnExists = false;
 let addProjectForm;
 
+//Load Default UI
+// loadToday();
+
 // Functions:
+function handleNewProjectSubmit() {
+  let projectFormInput = document.querySelector("#project-name");
+
+  // Make project and give to Librarian
+  const newProject = new Project(projectFormInput.value);
+  const newList = new List(projectFormInput.value);
+  newProject.appendList(newList);
+  const toDo1 = new ToDo("bake a cake", 2, false);
+  newList.appendItemToListArray(toDo1);
+
+  Librarian.addProject(newProject);
+
+  // Rebuild UI
+  rebuildUI();
+}
+
 function handleAddProject() {
   addProjectForm = displayProjectModal();
   contentDiv.appendChild(addProjectForm);
 
   const projectSubmitBtn = document.querySelector("#project-form-btn");
-  projectSubmitBtn.addEventListener("click", handleNewProjectSubmit);
 
-  // Get user input
-  // checkInputValidity();
-  // Create Project from class
-
-  // Append project to DOM
+  projectSubmitBtn.addEventListener("click", () => {
+    handleNewProjectSubmit();
+  });
 }
 
-function handleNewProjectSubmit() {
-  // Get the data
-  let projectFormInput = document.querySelector("#project-name");
-
-  // Make project and give to Librarian
-  const newProject = new Project(projectFormInput.value);
-  Librarian.addProject(newProject);
-
-  console.log(Librarian);
-
-  // Rebuild UI
-  reBuildUI();
+export function handleAddList() {
+  console.log("hi");
+  //   addListForm = displayListForm();
+  //
 }
 
 // Event Listeners:
 projectBtn.addEventListener("click", handleAddProject);
+// addListBtn.addEventListener("click", handleAddList);
 
 // () => {
 //   addProjectForm = displayProjectModal();
@@ -81,3 +93,5 @@ console.log(buildDefault);
 contentDiv.appendChild(today.buildElement());
 
 */
+
+console.log(Librarian);
