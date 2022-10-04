@@ -1,4 +1,4 @@
-import { handleAddList } from "./index";
+import { handleAddList, handleAddToDo } from "./index";
 import { removeItemFromArray } from "./utilities";
 import { isWithinInterval } from "date-fns";
 export default class Project {
@@ -57,9 +57,20 @@ export class List {
   buildVirtualBoi() {
     return this.listItems.reduce(
       (virtualUl, toDo) => virtualUl.addChild(toDo.buildVirtualBoi()),
-      new Element("ul").setAttributes({
-        id: this.name,
-      })
+      new Element("ul")
+        .setAttributes({
+          id: this.name,
+        })
+        .addChild(
+          new Element("button")
+            .setAttributes({
+              type: "button",
+              class: "add-todo-btn",
+              id: `${this.name}-add-todo-btn`,
+            })
+            .setTextContent("Add to do item")
+            .appendEventListener("click", (e) => handleAddToDo(e, this))
+        )
     );
   }
 

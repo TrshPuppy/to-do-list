@@ -11,6 +11,7 @@ import { ToDo } from "./classes";
 import { Librarian } from "./classes";
 import displayProjectModal from "./UIhandlers";
 import { displayListForm } from "./UIhandlers";
+import { displayToDoForm } from "./UIhandlers";
 import { rebuildUI } from "./utilities";
 
 // Globals:
@@ -55,12 +56,26 @@ export function handleNewListSubmit(e, project) {
   project.appendList(newList);
 
   rebuildUI();
-  console.log(Librarian.getAllProjects());
 }
 
 export function handleAddList(e, project) {
   const newListForm = displayListForm(project);
   e.target.parentElement.appendChild(newListForm);
+}
+
+export function handleNewToDoSubmit(e, list) {
+  let toDoFormInput = document.querySelector("#todo-name");
+  const newToDo = new ToDo(toDoFormInput.value);
+
+  list.appendItemToListArray(newToDo);
+  console.log(Librarian.getAllProjects());
+
+  rebuildUI();
+}
+
+export function handleAddToDo(e, list) {
+  const ā̷̔r̴͐́ť̷͊h̶̙̊v̸̍͆ả̸͘d̷̎̄r̴̄͂r̸̀̐_̶̅͝ẇ̸̑a̵̬̎ș̴̃_̴̄̒h̵̽̐ȩ̴̑ŕ̵̄ë̶́̕ = displayToDoForm(list);
+  e.target.parentElement.appendChild(ā̷̔r̴͐́ť̷͊h̶̙̊v̸̍͆ả̸͘d̷̎̄r̴̄͂r̸̀̐_̶̅͝ẇ̸̑a̵̬̎ș̴̃_̴̄̒h̵̽̐ȩ̴̑ŕ̵̄ë̶́̕);
 }
 
 // Event Listeners:

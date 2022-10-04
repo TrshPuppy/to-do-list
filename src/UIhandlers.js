@@ -1,5 +1,6 @@
 import { Element } from "./classes";
 import { handleNewListSubmit } from "./index";
+import { handleNewToDoSubmit } from "./index";
 
 export default function displayProjectModal() {
   return new Element("form")
@@ -45,6 +46,31 @@ export function displayListForm(project) {
           id: "list-form-btn",
         })
         .appendEventListener("click", (e) => handleNewListSubmit(e, project))
+        .setTextContent("Submit")
+    )
+    .buildElement();
+}
+
+export function displayToDoForm(list) {
+  return new Element("form")
+    .setAttributes({ class: "form", id: "add-todo-form" })
+    .addChild(
+      new Element("input").setAttributes({
+        type: "text",
+        class: "form-input",
+        id: "todo-name",
+        placeholder: "Name your to-do",
+        required: "required",
+      })
+    )
+    .addChild(
+      new Element("button")
+        .setAttributes({
+          type: "button",
+          class: "form-btn",
+          id: "todo-form-btn",
+        })
+        .appendEventListener("click", (e) => handleNewToDoSubmit(e, list))
         .setTextContent("Submit")
     )
     .buildElement();
