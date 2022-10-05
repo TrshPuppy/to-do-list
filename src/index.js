@@ -65,6 +65,7 @@ export function handleAddList(e, project) {
 
 export function handleNewToDoSubmit(e, list) {
   let toDoFormInput = document.querySelector("#todo-name");
+
   const newToDo = new ToDo(toDoFormInput.value);
 
   list.appendItemToListArray(newToDo);

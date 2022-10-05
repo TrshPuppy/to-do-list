@@ -42,11 +42,11 @@ export default function loadToday(projectsArray) {
 
 // Creates interval of range within the next week to be used in buildTab()
 export function loadWeek(projectsArray) {
-  const now = new Date();
+  const rightJoin = new Date();
 
   const interval = {
-    start: startOfWeek(now),
-    end: endOfWeek(now),
+    start: startOfWeek(rightJoin),
+    end: endOfWeek(rightJoin),
   };
 
   return buildTab(projectsArray, interval);

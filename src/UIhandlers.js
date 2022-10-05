@@ -88,6 +88,14 @@ export function displayToDoForm(list) {
         .addChild(createFormDiv("high", "priority", false))
     )
     .addChild(
+      new Element("fieldset")
+        .addChild(
+          new Element("legend").setTextContent("Have you completed this task?")
+        )
+        .addChild(createFormDiv("yes", "completed", true))
+        .addChild(createFormDiv("no", "completed", false))
+    )
+    .addChild(
       new Element("button")
         .setAttributes({
           type: "button",
@@ -99,3 +107,5 @@ export function displayToDoForm(list) {
     )
     .buildElement();
 }
+
+///RIGHTJOIN
