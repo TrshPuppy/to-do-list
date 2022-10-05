@@ -1,4 +1,5 @@
 import { Librarian } from "./classes";
+import { Element } from "./classes";
 
 let contentDiv;
 
@@ -20,3 +21,22 @@ export function rebuildUI() {
     contentDiv.appendChild(virtualProject.buildElement());
   }
 }
+
+export function createFormDiv(id, name, checked) {
+  return new Element("div")
+    .addChild(
+      new Element("input").setAttributes({
+        type: "radio",
+        id: id,
+        name: name,
+        value: id,
+        checked: checked,
+      })
+    )
+    .addChild(
+      new Element("label").setAttributes({ for: id }).setTextContent(id)
+    );
+}
+
+// checkbox = new Element("checkbox").setAttributes({'checked': false})
+// ({'checked': true})

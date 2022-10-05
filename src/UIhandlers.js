@@ -1,6 +1,7 @@
 import { Element } from "./classes";
 import { handleNewListSubmit } from "./index";
 import { handleNewToDoSubmit } from "./index";
+import { createFormDiv } from "./utilities";
 
 export default function displayProjectModal() {
   return new Element("form")
@@ -62,6 +63,13 @@ export function displayToDoForm(list) {
         placeholder: "Name your to-do",
         required: "required",
       })
+    )
+    .addChild(
+      new Element("fieldset")
+        .addChild(new Element("legend").setTextContent("Choose a priority"))
+        .addChild(createFormDiv("low", "priority", true))
+        .addChild(createFormDiv("medium", "priority", false))
+        .addChild(createFormDiv("high", "priority", false))
     )
     .addChild(
       new Element("button")

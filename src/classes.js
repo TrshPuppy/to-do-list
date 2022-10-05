@@ -126,7 +126,14 @@ export class Element {
 
     // Add attributes to element
     for (const attribute in this.attributes) {
-      realBoi.setAttribute(attribute, this.attributes[attribute]);
+      if (
+        this.attributes[attribute] === true ||
+        this.attributes[attribute] === false
+      ) {
+        realBoi.toggleAttribute(attribute, this.attributes[attribute]);
+      } else {
+        realBoi.setAttribute(attribute, this.attributes[attribute]);
+      }
     }
 
     // Add event listeners:
