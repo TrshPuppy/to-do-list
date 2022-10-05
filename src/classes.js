@@ -1,4 +1,4 @@
-import { handleAddList, handleAddToDo } from "./index";
+import { handleAddList, handleAddToDo, handleEditToDo } from "./index";
 import { removeItemFromArray } from "./utilities";
 import { isWithinInterval } from "date-fns";
 export default class Project {
@@ -102,8 +102,16 @@ export class ToDo {
     virtualBoi
       .addChild(new Element("h1").setTextContent(this.name))
       .addChild(new Element("h2").setTextContent(`Priority: ${this.priority}`))
-      .addChild(new Element("button").setTextContent("Set Priority"))
-      .addChild(new Element("button").setTextContent("Mark Done"));
+      .addChild(new Element("p").setTextContent(`Due: ${this.date}`))
+      .addChild(
+        new Element("p").setTextContent(`Completed: ${this.isCompleted}`)
+      )
+      .addChild(
+        new Element("button")
+          .setAttributes({ type: "button", id: "edit-todo-btn" })
+          .setTextContent("Edit this to do item")
+          .appendEventListener("click", (e) => handleEditToDo(e, this))
+      );
 
     return virtualBoi;
   }

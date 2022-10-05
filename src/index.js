@@ -12,6 +12,7 @@ import { Librarian } from "./classes";
 import displayProjectModal from "./UIhandlers";
 import { displayListForm } from "./UIhandlers";
 import { displayToDoForm } from "./UIhandlers";
+import { displayEditToDoForm } from "./UIhandlers";
 import { rebuildUI } from "./utilities";
 
 // Globals:
@@ -63,7 +64,7 @@ export function handleAddList(e, project) {
   e.target.parentElement.appendChild(newListForm);
 }
 
-export function handleNewToDoSubmit(e, list) {
+export function handleNewToDoSubmit(list) {
   let addToDoForm = document.querySelector("#add-todo-form");
 
   const newToDo = new ToDo(
@@ -74,7 +75,6 @@ export function handleNewToDoSubmit(e, list) {
   );
 
   list.appendItemToListArray(newToDo);
-  console.log(Librarian.getAllProjects());
 
   rebuildUI();
 }
@@ -82,6 +82,19 @@ export function handleNewToDoSubmit(e, list) {
 export function handleAddToDo(e, list) {
   const ā̷̔r̴͐́ť̷͊h̶̙̊v̸̍͆ả̸͘d̷̎̄r̴̄͂r̸̀̐_̶̅͝ẇ̸̑a̵̬̎ș̴̃_̴̄̒h̵̽̐ȩ̴̑ŕ̵̄ë̶́̕ = displayToDoForm(list);
   e.target.parentElement.appendChild(ā̷̔r̴͐́ť̷͊h̶̙̊v̸̍͆ả̸͘d̷̎̄r̴̄͂r̸̀̐_̶̅͝ẇ̸̑a̵̬̎ș̴̃_̴̄̒h̵̽̐ȩ̴̑ŕ̵̄ë̶́̕);
+}
+
+export function handleEditToDoSubmit(toDoItem) {
+  let editToDoForm = document.querySelector("#edit-todo-form");
+  toDoItem.name = editToDoForm["todo-name"].value;
+
+  rebuildUI();
+}
+
+export function handleEditToDo(e, toDoItem) {
+  const editToDoForm = displayEditToDoForm(toDoItem);
+
+  e.target.parentElement.appendChild(editToDoForm);
 }
 
 // Event Listeners:
@@ -120,4 +133,4 @@ contentDiv.appendChild(today.buildElement());
 
 */
 
-console.log(Librarian);
+// console.log(Librarian);

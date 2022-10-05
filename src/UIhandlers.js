@@ -1,5 +1,5 @@
 import { Element } from "./classes";
-import { handleNewListSubmit } from "./index";
+import { handleEditToDoSubmit, handleNewListSubmit } from "./index";
 import { handleNewToDoSubmit } from "./index";
 import { createFormDiv } from "./utilities";
 import { startOfYear } from "date-fns";
@@ -102,7 +102,66 @@ export function displayToDoForm(list) {
           class: "form-btn",
           id: "todo-form-btn",
         })
-        .appendEventListener("click", (e) => handleNewToDoSubmit(e, list))
+        .appendEventListener("click", (e) => handleNewToDoSubmit(list))
+        .setTextContent("Submit")
+    )
+    .buildElement();
+}
+
+export function displayEditToDoForm(toDoItem) {
+  return new Element("form")
+    .setAttributes({ class: "form", id: "edit-todo-form" })
+    .addChild(
+      new Element("input").setAttributes({
+        type: "text",
+        class: "form-input",
+        id: "todo-name",
+        placeholder: "Name your to-do",
+        required: "required",
+      })
+    )
+    .addChild(
+      new Element("label")
+        .setAttributes({ for: "due-date" })
+        .setTextContent("Pick a due date:")
+    )
+    .addChild(
+      new Element("input").setAttributes({
+        type: "date",
+        id: "due-date",
+        name: "due-date",
+        value: `${toDoItem.date}`,
+        min: `${startOfYear(new Date())}`,
+        max: "undefined",
+      })
+    )
+    .addChild(
+      new Element("fieldset")
+        .addChild(new Element("legend").setTextContent("Choose a priority"))
+        .addChild(createFormDiv("low", "priority", toDoItem.priority === "low"))
+        .addChild(
+          createFormDiv("medium", "priority", toDoItem.priority === "medium")
+        )
+        .addChild(
+          createFormDiv("high", "priority", toDoItem.priority === "high")
+        )
+    )
+    .addChild(
+      new Element("fieldset")
+        .addChild(
+          new Element("legend").setTextContent("Have you completed this task?")
+        )
+        .addChild(createFormDiv("yes", "completed", true))
+        .addChild(createFormDiv("no", "completed", false))
+    )
+    .addChild(
+      new Element("button")
+        .setAttributes({
+          type: "button",
+          class: "form-btn",
+          id: "todo-form-btn",
+        })
+        .appendEventListener("click", (e) => handleEditToDoSubmit(toDoItem))
         .setTextContent("Submit")
     )
     .buildElement();
