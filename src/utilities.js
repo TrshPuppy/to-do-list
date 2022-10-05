@@ -37,6 +37,3 @@ export function createFormDiv(id, name, checked) {
       new Element("label").setAttributes({ for: id }).setTextContent(id)
     );
 }
-
-// checkbox = new Element("checkbox").setAttributes({'checked': false})
-// ({'checked': true})

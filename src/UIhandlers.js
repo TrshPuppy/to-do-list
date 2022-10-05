@@ -2,6 +2,7 @@ import { Element } from "./classes";
 import { handleNewListSubmit } from "./index";
 import { handleNewToDoSubmit } from "./index";
 import { createFormDiv } from "./utilities";
+import { startOfYear } from "date-fns";
 
 export default function displayProjectModal() {
   return new Element("form")
@@ -62,6 +63,21 @@ export function displayToDoForm(list) {
         id: "todo-name",
         placeholder: "Name your to-do",
         required: "required",
+      })
+    )
+    .addChild(
+      new Element("label")
+        .setAttributes({ for: "due-date" })
+        .setTextContent("Pick a due date:")
+    )
+    .addChild(
+      new Element("input").setAttributes({
+        type: "date",
+        id: "due-date",
+        name: "due-date",
+        value: `${new Date()}`,
+        min: `${startOfYear(new Date())}`,
+        max: "undefined",
       })
     )
     .addChild(
