@@ -116,6 +116,7 @@ export function displayEditToDoForm(toDoItem) {
         type: "text",
         class: "form-input",
         id: "todo-name",
+        value: toDoItem.name,
         placeholder: "Name your to-do",
         required: "required",
       })
@@ -151,8 +152,12 @@ export function displayEditToDoForm(toDoItem) {
         .addChild(
           new Element("legend").setTextContent("Have you completed this task?")
         )
-        .addChild(createFormDiv("yes", "completed", true))
-        .addChild(createFormDiv("no", "completed", false))
+        .addChild(
+          createFormDiv("yes", "completed", toDoItem.isCompleted === "yes")
+        )
+        .addChild(
+          createFormDiv("no", "completed", toDoItem.isCompleted === "no")
+        )
     )
     .addChild(
       new Element("button")

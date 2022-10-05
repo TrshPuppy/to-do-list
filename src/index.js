@@ -86,7 +86,11 @@ export function handleAddToDo(e, list) {
 
 export function handleEditToDoSubmit(toDoItem) {
   let editToDoForm = document.querySelector("#edit-todo-form");
+
   toDoItem.name = editToDoForm["todo-name"].value;
+  toDoItem.priority = editToDoForm["priority"].value;
+  toDoItem.isCompleted = editToDoForm["completed"].value;
+  toDoItem.date = editToDoForm["due-date"].value;
 
   rebuildUI();
 }
