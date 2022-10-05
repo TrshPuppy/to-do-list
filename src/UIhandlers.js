@@ -107,5 +107,3 @@ export function displayToDoForm(list) {
     )
     .buildElement();
 }
-
-///RIGHTJOIN

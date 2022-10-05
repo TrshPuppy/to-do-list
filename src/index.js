@@ -64,9 +64,14 @@ export function handleAddList(e, project) {
 }
 
 export function handleNewToDoSubmit(e, list) {
-  let toDoFormInput = document.querySelector("#todo-name");
+  let addToDoForm = document.querySelector("#add-todo-form");
 
-  const newToDo = new ToDo(toDoFormInput.value);
+  const newToDo = new ToDo(
+    addToDoForm["todo-name"].value,
+    addToDoForm["priority"].value,
+    addToDoForm["completed"].value,
+    addToDoForm["due-date"].value
+  );
 
   list.appendItemToListArray(newToDo);
   console.log(Librarian.getAllProjects());
