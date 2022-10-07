@@ -23,6 +23,7 @@ const todayTabBtn = document.querySelector(".today-tab");
 const weekTabBtn = document.querySelector(".week-tab");
 const monthTabBtn = document.querySelector(".month-tab");
 const yearTabBtn = document.querySelector(".year-tab");
+const projectsTabBtn = document.querySelector(".projects-tab");
 
 let addProjectForm;
 
@@ -40,9 +41,7 @@ testList.appendItemToListArray(testToDo3);
 testProject.appendList(testList);
 Librarian.addProject(testProject);
 rebuildUI();
-
-//Load Default UI
-// loadToday(Librarian.getAllProjects());
+// END TEST
 
 // Functions:
 function handleNewProjectSubmit() {
@@ -140,3 +139,4 @@ monthTabBtn.addEventListener("click", () =>
 yearTabBtn.addEventListener("click", () =>
   handleTabSelection(loadYear(Librarian.getAllProjects()))
 );
+projectsTabBtn.addEventListener("click", () => rebuildUI());
