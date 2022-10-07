@@ -18,10 +18,24 @@ import { rebuildUI } from "./utilities";
 // Globals:
 const contentDiv = document.querySelector(".content");
 const projectBtn = document.querySelector(".add-project-btn");
+const todayTabBtn = document.querySelector(".today-tab");
 let addProjectForm;
 
+// Test cases
+let testProject = new Project("test", undefined);
+let testList = new List("test list");
+let testToDo1 = new ToDo("test-1", "high", false, new Date());
+let testToDo2 = new ToDo("test-2", "low", true, new Date("November 5, 2022"));
+
+testList.appendItemToListArray(testToDo1);
+testList.appendItemToListArray(testToDo2);
+
+testProject.appendList(testList);
+Librarian.addProject(testProject);
+rebuildUI();
+
 //Load Default UI
-// loadToday();
+// loadToday(Librarian.getAllProjects());
 
 // Functions:
 function handleNewProjectSubmit() {
@@ -101,40 +115,10 @@ export function handleEditToDo(e, toDoItem) {
   e.target.parentElement.appendChild(editToDoForm);
 }
 
+function handleTabSelection() {
+  rebuildUI(loadToday(Librarian.getAllProjects()));
+}
+
 // Event Listeners:
 projectBtn.addEventListener("click", handleAddProject);
-
-// () => {
-//   addProjectForm = displayProjectModal();
-//   contentDiv.appendChild(addProjectForm);
-
-//   handleFormInput(addProjectForm);
-// });
-
-/*
-// Create default project on load:
-const defaultProject = new Project("default", 1);
-
-const myList = new List("first list");
-
-const toDoItem = new ToDo("water the lawn", 3, false, new Date(2022, 8, 17));
-
-const todo2 = new ToDo("Eat a watermelon", 2, true, new Date(2022, 11, 30));
-
-myList.appendItemToListArray(toDoItem);
-myList.appendItemToListArray(todo2);
-
-defaultProject.appendList(myList);
-
-Librarian.addProject(defaultProject);
-
-const today = loadYear(Librarian.getAllProjects());
-console.log(today);
-
-const buildDefault = defaultProject.buildVirtualBoi();
-console.log(buildDefault);
-contentDiv.appendChild(today.buildElement());
-
-*/
-
-// console.log(Librarian);
+todayTabBtn.addEventListener("click", (e) => handleTabSelection(e));

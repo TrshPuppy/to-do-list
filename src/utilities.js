@@ -1,5 +1,6 @@
 import { Librarian } from "./classes";
 import { Element } from "./classes";
+import loadToday from "./loadTabs";
 
 let contentDiv;
 
@@ -9,16 +10,23 @@ export function removeItemFromArray(item, array) {
 }
 
 // rebuild UI
-export function rebuildUI() {
+export function rebuildUI(virtualBoi) {
   contentDiv = document.querySelector(".content");
   contentDiv.textContent = "";
 
-  const projectsArray = Librarian.getAllProjects();
+  if (virtualBoi === undefined) {
+    const projectsArray = Librarian.getAllProjects();
 
-  for (const project of projectsArray) {
-    const virtualProject = project.buildVirtualBoi();
+    for (const project of projectsArray) {
+      const virtualProject = project.buildVirtualBoi();
 
-    contentDiv.appendChild(virtualProject.buildElement());
+      contentDiv.appendChild(virtualProject.buildElement());
+    }
+  } else {
+    // let virtualBoi = loadToday(Librarian.getAllProjects());
+    let realBoi = virtualBoi.buildElement();
+
+    contentDiv.appendChild(realBoi);
   }
 }
 
