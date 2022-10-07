@@ -11,7 +11,7 @@ import {
 } from "date-fns";
 
 // Returns a built element based on interval and projectsArray[]:
-function buildTab(projectsArray, interval) {
+function buildTab(projectsArray, interval, divId, headingText) {
   const intervalToDos = projectsArray.flatMap((project) =>
     project.getAllTasksInInterval(interval)
   );
@@ -24,9 +24,9 @@ function buildTab(projectsArray, interval) {
   return new Element("div")
     .setAttributes({
       class: "date-tab",
-      id: "today-tab",
+      id: divId,
     })
-    .addChild(new Element("h1").setTextContent("Today"))
+    .addChild(new Element("h1").setTextContent(headingText))
     .addChild(intervalToDosUI);
 }
 
@@ -37,7 +37,7 @@ export default function loadToday(projectsArray) {
     end: endOfToday(),
   };
 
-  return buildTab(projectsArray, interval);
+  return buildTab(projectsArray, interval, "today-tab", "Today");
 }
 
 // Creates interval of range within the next week to be used in buildTab()
@@ -49,21 +49,21 @@ export function loadWeek(projectsArray) {
     end: endOfWeek(rightJoin),
   };
 
-  return buildTab(projectsArray, interval);
+  return buildTab(projectsArray, interval, "week-tab", "This Week");
 }
 
 export function loadMonth(projectsArray) {
   const now = new Date();
 
   const interval = { start: startOfMonth(now), end: endOfMonth(now) };
-  return buildTab(projectsArray, interval);
+  return buildTab(projectsArray, interval, "month-tab", "This Month");
 }
 
 export function loadYear(projectsArray) {
   const now = new Date();
   const interval = { start: startOfYear(now), end: endOfYear(now) };
 
-  return buildTab(projectsArray, interval);
+  return buildTab(projectsArray, interval, "year-tab", "This Year");
 }
 
 //Today HTML:
