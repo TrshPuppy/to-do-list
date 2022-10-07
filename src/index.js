@@ -1,4 +1,5 @@
 // Imports
+import "./stylesheet.css";
 import {
   default as loadToday,
   loadWeek,
