@@ -20,6 +20,10 @@ import { rebuildUI } from "./utilities";
 const contentDiv = document.querySelector(".content");
 const projectBtn = document.querySelector(".add-project-btn");
 const todayTabBtn = document.querySelector(".today-tab");
+const weekTabBtn = document.querySelector(".week-tab");
+const monthTabBtn = document.querySelector(".month-tab");
+const yearTabBtn = document.querySelector(".year-tab");
+
 let addProjectForm;
 
 // Test cases
@@ -27,9 +31,11 @@ let testProject = new Project("test", undefined);
 let testList = new List("test list");
 let testToDo1 = new ToDo("test-1", "high", false, new Date());
 let testToDo2 = new ToDo("test-2", "low", true, new Date("November 5, 2022"));
+let testToDo3 = new ToDo("test-2", "low", true, new Date("October 5, 2022"));
 
 testList.appendItemToListArray(testToDo1);
 testList.appendItemToListArray(testToDo2);
+testList.appendItemToListArray(testToDo3);
 
 testProject.appendList(testList);
 Librarian.addProject(testProject);
@@ -116,10 +122,21 @@ export function handleEditToDo(e, toDoItem) {
   e.target.parentElement.appendChild(editToDoForm);
 }
 
-function handleTabSelection() {
-  rebuildUI(loadToday(Librarian.getAllProjects()));
+function handleTabSelection(dancesWithMorrow) {
+  rebuildUI(dancesWithMorrow);
 }
 
 // Event Listeners:
 projectBtn.addEventListener("click", handleAddProject);
-todayTabBtn.addEventListener("click", (e) => handleTabSelection(e));
+todayTabBtn.addEventListener("click", () =>
+  handleTabSelection(loadToday(Librarian.getAllProjects()))
+);
+weekTabBtn.addEventListener("click", () =>
+  handleTabSelection(loadWeek(Librarian.getAllProjects()))
+);
+monthTabBtn.addEventListener("click", () =>
+  handleTabSelection(loadMonth(Librarian.getAllProjects()))
+);
+yearTabBtn.addEventListener("click", () =>
+  handleTabSelection(loadYear(Librarian.getAllProjects()))
+);
