@@ -6,7 +6,6 @@ export default class Project {
     this.name = name;
     this.id = id;
     this.lists = [];
-    // this.priority;
   }
 
   appendList(list) {
@@ -29,6 +28,7 @@ export default class Project {
           class: "project",
           id: `Project-${this.id}`,
         })
+        .addChild(new Element("h1").setTextContent(`${this.name}`))
         .addChild(
           new Element("button")
             .setAttributes({
@@ -95,6 +95,15 @@ export class ToDo {
     this.priority = priority;
     this.isCompleted = isCompleted;
     this.date = date;
+  }
+
+  set date(newDate) {
+    // YOU ARE HERE: UTC VS LOCAL LOOK AT THIS BIOTCH: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset
+    this.dueDate = typeof newDate === "string" ? new Date(newDate) : newDate;
+  }
+
+  get date() {
+    return this.dueDate;
   }
 
   buildVirtualBoi() {
