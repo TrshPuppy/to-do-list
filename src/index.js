@@ -31,7 +31,12 @@ let addProjectForm;
 let testProject = new Project("test", undefined);
 let testList = new List("test list");
 let testToDo1 = new ToDo("test-1", "high", false, new Date());
-let testToDo2 = new ToDo("test-2", "low", true, new Date("November 5, 2022"));
+let testToDo2 = new ToDo(
+  "tigOlBitties",
+  "low",
+  true,
+  new Date("November 5, 2022")
+);
 let testToDo3 = new ToDo("test-2", "low", true, new Date("October 5, 2022"));
 
 testList.appendItemToListArray(testToDo1);

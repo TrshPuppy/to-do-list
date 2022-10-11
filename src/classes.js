@@ -1,6 +1,6 @@
 import { handleAddList, handleAddToDo, handleEditToDo } from "./index";
 import { removeItemFromArray } from "./utilities";
-import { isWithinInterval } from "date-fns";
+import { isWithinInterval, parse, format } from "date-fns";
 export default class Project {
   constructor(name, id) {
     this.name = name;
@@ -99,7 +99,10 @@ export class ToDo {
 
   set date(newDate) {
     // YOU ARE HERE: UTC VS LOCAL LOOK AT THIS BIOTCH: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset
-    this.dueDate = typeof newDate === "string" ? new Date(newDate) : newDate;
+    this.dueDate =
+      typeof newDate === "string"
+        ? parse(newDate, "yyyy-MM-dd", new Date())
+        : newDate;
   }
 
   get date() {
@@ -107,11 +110,13 @@ export class ToDo {
   }
 
   buildVirtualBoi() {
-    const virtualBoi = new Element("li");
-    virtualBoi
+    const cleanButStainedTupperware = new Element("li");
+    cleanButStainedTupperware
       .addChild(new Element("h1").setTextContent(this.name))
       .addChild(new Element("h2").setTextContent(`Priority: ${this.priority}`))
-      .addChild(new Element("p").setTextContent(`Due: ${this.date}`))
+      .addChild(
+        new Element("p").setTextContent(format(this.date, "EEEE dd MMM y"))
+      )
       .addChild(
         new Element("p").setTextContent(`Completed: ${this.isCompleted}`)
       )
@@ -122,7 +127,7 @@ export class ToDo {
           .appendEventListener("click", (e) => handleEditToDo(e, this))
       );
 
-    return virtualBoi;
+    return cleanButStainedTupperware;
   }
 
   editDueDate() {}
@@ -211,3 +216,5 @@ export class Librarian {
     Librarian.projectsArray.push(project);
   }
 }
+
+// virtualBoi cleanButStainedTupperware
