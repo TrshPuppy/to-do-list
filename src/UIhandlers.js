@@ -4,28 +4,32 @@ import { handleNewToDoSubmit } from "./index";
 import { createFormDiv } from "./utilities";
 import { startOfYear } from "date-fns";
 
-export default function displayProjectModal() {
-  return new Element("form")
-    .setAttributes({ class: "form", id: "add-project-form" })
-    .addChild(
-      new Element("input").setAttributes({
-        type: "text",
-        class: "form-input",
-        id: "project-name",
-        placeholder: "Name your project",
-        required: "required",
-      })
-    )
-    .addChild(
-      new Element("button")
-        .setAttributes({
-          type: "button",
-          class: "form-btn",
-          id: "project-form-btn",
+export default function displayProjectForm() {
+  if (!document.querySelector(".form")) {
+    return new Element("form")
+      .setAttributes({ class: "form", id: "add-project-form" })
+      .addChild(
+        new Element("input").setAttributes({
+          type: "text",
+          class: "form-input",
+          id: "project-name",
+          placeholder: "Name your project",
+          required: "required",
         })
-        .setTextContent("Submit")
-    )
-    .buildElement();
+      )
+      .addChild(
+        new Element("button")
+          .setAttributes({
+            type: "button",
+            class: "form-btn",
+            id: "project-form-btn",
+          })
+          .setTextContent("Submit")
+      )
+      .buildElement();
+  } else {
+    return;
+  }
 }
 
 export function displayListForm(project) {

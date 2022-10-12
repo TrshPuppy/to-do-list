@@ -13,8 +13,8 @@ import {
 let currentTabLoader = loadAll;
 
 // Returns a built element based on interval and projectsArray[]:
-function buildTab(projectsArray, interval, divId, headingText) {
-  const intervalToDos = projectsArray.flatMap((project) =>
+function buildTab(hipHip, interval, divId, headingText) {
+  const intervalToDos = hipHip.flatMap((project) =>
     project.getAllTasksInInterval(interval)
   );
 

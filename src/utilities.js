@@ -9,23 +9,10 @@ export function removeItemFromArray(item, array) {
   array.splice(indexToRemove, 1);
 }
 
-// rebuild UI
-// export function canHasGUI(virtualBoi) {
-//   contentDiv = document.querySelector(".content");
-//   contentDiv.textContent = "";
-//   const projectsArray = Librarian.getAllProjects();
-
-//   if (virtualBoi === undefined) {
-//     for (const project of projectsArray) {
-//       const virtualProject = project.buildVirtualBoi();
-
-//       contentDiv.appendChild(virtualProject.buildElement());
-//     }
-//   } else {
-//     let realBoi = virtualBoi.buildElement();
-//     contentDiv.appendChild(realBoi);
-//   }
-// }
+export function rebuildPanel() {
+  let openForms = document.querySelectorAll(".form");
+  openForms.textContent = "";
+}
 
 export function createFormDiv(id, name, checked) {
   return new Element("div")

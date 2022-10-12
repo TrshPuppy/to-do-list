@@ -13,7 +13,7 @@ import Project from "./classes";
 import { List } from "./classes";
 import { ToDo } from "./classes";
 import { Librarian } from "./classes";
-import displayProjectModal from "./UIhandlers";
+import displayProjectForm from "./UIhandlers";
 import { displayListForm } from "./UIhandlers";
 import { displayToDoForm } from "./UIhandlers";
 import { displayEditToDoForm } from "./UIhandlers";
@@ -30,9 +30,9 @@ const projectsTabBtn = document.querySelector(".projects-tab");
 let addProjectForm;
 
 // Test cases
-let testProject = new Project("test", undefined);
-let testList = new List("test list");
-let testToDo1 = new ToDo("test-1", "high", false, new Date());
+let testProject = new Project("My Project", undefined);
+let testList = new List("My Project List");
+let testToDo1 = new ToDo("My 1st To Do", "high", false, new Date());
 let testToDo2 = new ToDo(
   "tigOlBitties",
   "low",
@@ -64,8 +64,10 @@ function handleNewProjectSubmit() {
 }
 
 function handleAddProject() {
-  addProjectForm = displayProjectModal();
-  contentDiv.appendChild(addProjectForm);
+  addProjectForm = displayProjectForm();
+
+  let formContainer = document.querySelector(".form-container");
+  formContainer.appendChild(addProjectForm);
 
   const projectSubmitBtn = document.querySelector("#project-form-btn");
 
