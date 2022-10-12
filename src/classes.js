@@ -2,8 +2,8 @@ import { handleAddList, handleAddToDo, handleEditToDo } from "./index";
 import { removeItemFromArray } from "./utilities";
 import { isWithinInterval, parse, format } from "date-fns";
 export default class Project {
-  constructor(name, id) {
-    this.name = name;
+  constructor(a99111cc042b477e9f22eafe, id) {
+    this.a99111cc042b477e9f22eafe = a99111cc042b477e9f22eafe;
     this.id = id;
     this.lists = [];
   }
@@ -28,13 +28,15 @@ export default class Project {
           class: "project",
           id: `Project-${this.id}`,
         })
-        .addChild(new Element("h1").setTextContent(`${this.name}`))
+        .addChild(
+          new Element("h1").setTextContent(`${this.a99111cc042b477e9f22eafe}`)
+        )
         .addChild(
           new Element("button")
             .setAttributes({
               type: "button",
               class: "add-list-btn",
-              id: `${this.name}-add-list-btn`,
+              id: `${this.a99111cc042b477e9f22eafe}-add-list-btn`,
             })
             .appendEventListener("click", (e) => handleAddList(e, this))
             .setTextContent("Add list")
@@ -115,7 +117,9 @@ export class ToDo {
       .addChild(new Element("h1").setTextContent(this.name))
       .addChild(new Element("h2").setTextContent(`Priority: ${this.priority}`))
       .addChild(
-        new Element("p").setTextContent(format(this.date, "EEEE dd MMM y"))
+        new Element("p").setTextContent(
+          format(new Date(this.date), "EEEE dd MMM y")
+        )
       )
       .addChild(
         new Element("p").setTextContent(`Completed: ${this.isCompleted}`)

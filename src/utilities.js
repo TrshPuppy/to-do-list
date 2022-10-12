@@ -1,6 +1,6 @@
 import { Librarian } from "./classes";
 import { Element } from "./classes";
-import loadToday from "./loadTabs";
+import { buildTab } from "./loadTabs";
 
 let contentDiv;
 
@@ -10,25 +10,22 @@ export function removeItemFromArray(item, array) {
 }
 
 // rebuild UI
-export function rebuildUI(virtualBoi) {
-  contentDiv = document.querySelector(".content");
-  contentDiv.textContent = "";
+// export function canHasGUI(virtualBoi) {
+//   contentDiv = document.querySelector(".content");
+//   contentDiv.textContent = "";
+//   const projectsArray = Librarian.getAllProjects();
 
-  if (virtualBoi === undefined) {
-    const projectsArray = Librarian.getAllProjects();
+//   if (virtualBoi === undefined) {
+//     for (const project of projectsArray) {
+//       const virtualProject = project.buildVirtualBoi();
 
-    for (const project of projectsArray) {
-      const virtualProject = project.buildVirtualBoi();
-
-      contentDiv.appendChild(virtualProject.buildElement());
-    }
-  } else {
-    // let virtualBoi = loadToday(Librarian.getAllProjects());
-    let realBoi = virtualBoi.buildElement();
-
-    contentDiv.appendChild(realBoi);
-  }
-}
+//       contentDiv.appendChild(virtualProject.buildElement());
+//     }
+//   } else {
+//     let realBoi = virtualBoi.buildElement();
+//     contentDiv.appendChild(realBoi);
+//   }
+// }
 
 export function createFormDiv(id, name, checked) {
   return new Element("div")

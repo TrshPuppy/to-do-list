@@ -2,9 +2,12 @@
 import "./stylesheet.css";
 import {
   default as loadToday,
+  rebuildCurrentTab,
   loadWeek,
   loadMonth,
   loadYear,
+  loadAll,
+  rebuildTab,
 } from "./loadTabs";
 import Project from "./classes";
 import { List } from "./classes";
@@ -14,7 +17,7 @@ import displayProjectModal from "./UIhandlers";
 import { displayListForm } from "./UIhandlers";
 import { displayToDoForm } from "./UIhandlers";
 import { displayEditToDoForm } from "./UIhandlers";
-import { rebuildUI } from "./utilities";
+import { canHasGUI } from "./utilities";
 
 // Globals:
 const contentDiv = document.querySelector(".content");
@@ -24,7 +27,6 @@ const weekTabBtn = document.querySelector(".week-tab");
 const monthTabBtn = document.querySelector(".month-tab");
 const yearTabBtn = document.querySelector(".year-tab");
 const projectsTabBtn = document.querySelector(".projects-tab");
-
 let addProjectForm;
 
 // Test cases
@@ -45,7 +47,7 @@ testList.appendItemToListArray(testToDo3);
 
 testProject.appendList(testList);
 Librarian.addProject(testProject);
-rebuildUI();
+contentDiv.appendChild(loadAll(Librarian.getAllProjects()).buildElement());
 // END TEST
 
 // Functions:
@@ -54,15 +56,11 @@ function handleNewProjectSubmit() {
 
   // Make project and give to Librarian
   const newProject = new Project(projectFormInput.value);
-  // const newList = new List(projectFormInput.value);
-  // newProject.appendList(newList);
-  // const toDo1 = new ToDo("bake a cake", 2, false);
-  // newList.appendItemToListArray(toDo1);
 
   Librarian.addProject(newProject);
 
   // Rebuild UI
-  rebuildUI();
+  rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
 }
 
 function handleAddProject() {
@@ -77,11 +75,13 @@ function handleAddProject() {
 }
 
 export function handleNewListSubmit(e, project) {
+  let contentDiv = document.querySelector(".content");
+
   let listFormInput = document.querySelector("#list-name");
   const newList = new List(listFormInput.value);
   project.appendList(newList);
 
-  rebuildUI();
+  rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
 }
 
 export function handleAddList(e, project) {
@@ -101,7 +101,8 @@ export function handleNewToDoSubmit(list) {
 
   list.appendItemToListArray(newToDo);
 
-  rebuildUI();
+  rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
+  // canHasGUI(currentTab);
 }
 
 export function handleAddToDo(e, list) {
@@ -117,7 +118,7 @@ export function handleEditToDoSubmit(toDoItem) {
   toDoItem.isCompleted = editToDoForm["completed"].value;
   toDoItem.date = editToDoForm["due-date"].value;
 
-  rebuildUI();
+  rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
 }
 
 export function handleEditToDo(e, toDoItem) {
@@ -126,22 +127,20 @@ export function handleEditToDo(e, toDoItem) {
   e.target.parentElement.appendChild(editToDoForm);
 }
 
-function handleTabSelection(dancesWithMorrow) {
-  rebuildUI(dancesWithMorrow);
-}
-
 // Event Listeners:
 projectBtn.addEventListener("click", handleAddProject);
 todayTabBtn.addEventListener("click", () =>
-  handleTabSelection(loadToday(Librarian.getAllProjects()))
+  rebuildTab(Librarian.getAllProjects(), loadToday, contentDiv)
 );
 weekTabBtn.addEventListener("click", () =>
-  handleTabSelection(loadWeek(Librarian.getAllProjects()))
+  rebuildTab(Librarian.getAllProjects(), loadWeek, contentDiv)
 );
 monthTabBtn.addEventListener("click", () =>
-  handleTabSelection(loadMonth(Librarian.getAllProjects()))
+  rebuildTab(Librarian.getAllProjects(), loadMonth, contentDiv)
 );
 yearTabBtn.addEventListener("click", () =>
-  handleTabSelection(loadYear(Librarian.getAllProjects()))
+  rebuildTab(Librarian.getAllProjects(), loadYear, contentDiv)
 );
-projectsTabBtn.addEventListener("click", () => rebuildUI());
+projectsTabBtn.addEventListener("click", () =>
+  rebuildTab(Librarian.getAllProjects(), loadAll, contentDiv)
+);
