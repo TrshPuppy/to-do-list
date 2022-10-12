@@ -10,8 +10,8 @@ export function removeItemFromArray(item, array) {
 }
 
 export function rebuildPanel() {
-  let openForms = document.querySelectorAll(".form");
-  openForms.textContent = "";
+  const formContainer = document.querySelector(".form-container");
+  formContainer.textContent = "";
 }
 
 export function createFormDiv(id, name, checked) {
