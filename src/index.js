@@ -17,7 +17,10 @@ import displayProjectForm from "./UIhandlers";
 import { displayListForm } from "./UIhandlers";
 import { displayToDoForm } from "./UIhandlers";
 import { displayEditToDoForm } from "./UIhandlers";
-import { rebuildPanel } from "./utilities";
+import {
+  rebuildProjectFormContainer,
+  rebuildProjectListContainer,
+} from "./utilities";
 
 // Globals:
 const contentDiv = document.querySelector(".content");
@@ -56,11 +59,11 @@ function handleNewProjectSubmit() {
 
   // Make project and give to Librarian
   const newProject = new Project(projectFormInput.value);
-
   Librarian.addProject(newProject);
 
   // Rebuild UI
-  rebuildPanel();
+  rebuildProjectFormContainer();
+  rebuildProjectListContainer();
   rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
 }
 

@@ -11,6 +11,7 @@ import {
 } from "date-fns";
 
 let currentTabLoader = loadAll;
+// let currentProject =
 
 // Returns a built element based on interval and projectsArray[]:
 function buildTab(hipHip, interval, divId, headingText) {
@@ -40,6 +41,10 @@ export function rebuildTab(projectsArray, loaderFunc, contentDiv) {
 
 export function rebuildCurrentTab(projectsArray, contentDiv) {
   rebuildTab(projectsArray, currentTabLoader, contentDiv);
+}
+
+export function rebuildTabRTProject(e, project) {
+  console.log(project);
 }
 
 // Creates interval of range within today to be used by buildTab()
