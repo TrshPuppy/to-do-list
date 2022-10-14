@@ -9,18 +9,16 @@ import {
   loadAll,
   rebuildTab,
 } from "./loadTabs";
-import Project from "./classes";
-import { List } from "./classes";
-import { ToDo } from "./classes";
-import { Librarian } from "./classes";
-import displayProjectForm from "./UIhandlers";
-import { displayListForm } from "./UIhandlers";
-import { displayToDoForm } from "./UIhandlers";
-import { displayEditToDoForm } from "./UIhandlers";
+
 import {
-  rebuildProjectFormContainer,
-  rebuildProjectListContainer,
-} from "./utilities";
+  default as displayProjectForm,
+  displayListForm,
+  displayToDoForm,
+  displayEditToDoForm,
+} from "./UIhandlers";
+
+import { rebuildProjectFormContainer } from "./utilities";
+import { default as Project, Element, List, ToDo, Librarian } from "./classes";
 
 // Globals:
 const contentDiv = document.querySelector(".content");
@@ -50,8 +48,30 @@ testList.appendItemToListArray(testToDo3);
 
 testProject.appendList(testList);
 Librarian.addProject(testProject);
+
+let tiddies = new Project("My Tiddies Project", undefined);
+let testList2 = new List("My Tiddies List");
+let testToDo4 = new ToDo("My 1st To Do", "high", false, new Date());
+let testToDo5 = new ToDo(
+  "tigOlBitties",
+  "low",
+  true,
+  new Date("November 26, 2022")
+);
+let testToDo6 = new ToDo("test-2", "low", true, new Date("October 11, 2022"));
+
+testList2.appendItemToListArray(testToDo4);
+testList2.appendItemToListArray(testToDo5);
+testList2.appendItemToListArray(testToDo6);
+
+tiddies.appendList(testList2);
+Librarian.addProject(tiddies);
 contentDiv.appendChild(loadAll(Librarian.getAllProjects()).buildElement());
 // END TEST
+
+// On Page Load
+rebuildProjectListContainer(contentDiv);
+let currentProject = undefined;
 
 // Functions:
 function handleNewProjectSubmit() {
@@ -63,8 +83,8 @@ function handleNewProjectSubmit() {
 
   // Rebuild UI
   rebuildProjectFormContainer();
-  rebuildProjectListContainer();
-  rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
+  rebuildProjectListContainer(contentDiv);
+  rebuildCurrentTab(getSelectedProjects(), contentDiv);
 }
 
 function handleAddProject() {
@@ -87,7 +107,7 @@ export function handleNewListSubmit(e, project) {
   const newList = new List(listFormInput.value);
   project.appendList(newList);
 
-  rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
+  rebuildCurrentTab(getSelectedProjects(), contentDiv);
 }
 
 export function handleAddList(e, project) {
@@ -107,7 +127,7 @@ export function handleNewToDoSubmit(list) {
 
   list.appendItemToListArray(newToDo);
 
-  rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
+  rebuildCurrentTab(getSelectedProjects(), contentDiv);
   // canHasGUI(currentTab);
 }
 
@@ -133,19 +153,57 @@ export function handleEditToDo(e, toDoItem) {
   e.target.parentElement.appendChild(editToDoForm);
 }
 
+function rebuildProjectListContainer(contentDiv) {
+  const projectListContainer = document.querySelector(
+    ".project-list-container"
+  );
+
+  projectListContainer.textContent = "";
+
+  const strLngDoubleFloat = Librarian.getAllProjects();
+
+  const virtualBoiUL = strLngDoubleFloat.reduce(
+    (virtualUL, project) => virtualUL.addChild(createProjectLi(project)),
+    new Element("ul")
+      .setAttributes({
+        class: "projects-list",
+      })
+      .addChild(createProjectLi())
+  );
+
+  projectListContainer.appendChild(virtualBoiUL.buildElement());
+}
+
+function createProjectLi(project) {
+  return new Element("li")
+    .setTextContent(project?.name ?? "All Projects")
+    .appendEventListener("click", (e) => {
+      currentProject = project;
+      rebuildCurrentTab(getSelectedProjects(), contentDiv);
+    });
+}
+
+export function getSelectedProjects() {
+  if (!currentProject) {
+    return Librarian.getAllProjects();
+  } else {
+    return [currentProject];
+  }
+}
+
 // Event Listeners:
 projectBtn.addEventListener("click", handleAddProject);
 todayTabBtn.addEventListener("click", () =>
-  rebuildTab(Librarian.getAllProjects(), loadToday, contentDiv)
+  rebuildTab(getSelectedProjects(), loadToday, contentDiv)
 );
 weekTabBtn.addEventListener("click", () =>
-  rebuildTab(Librarian.getAllProjects(), loadWeek, contentDiv)
+  rebuildTab(getSelectedProjects(), loadWeek, contentDiv)
 );
 monthTabBtn.addEventListener("click", () =>
-  rebuildTab(Librarian.getAllProjects(), loadMonth, contentDiv)
+  rebuildTab(getSelectedProjects(), loadMonth, contentDiv)
 );
 yearTabBtn.addEventListener("click", () =>
-  rebuildTab(Librarian.getAllProjects(), loadYear, contentDiv)
+  rebuildTab(getSelectedProjects(), loadYear, contentDiv)
 );
 projectsTabBtn.addEventListener("click", () =>
   rebuildTab(Librarian.getAllProjects(), loadAll, contentDiv)

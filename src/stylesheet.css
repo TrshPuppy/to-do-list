@@ -66,6 +66,9 @@ button {
   padding: 8px;
   border-radius: 3px;
 }
+button:active {
+  background-color: pink;
+}
 .nav button {
   align-self: flex-end;
   border-bottom-left-radius: 0;

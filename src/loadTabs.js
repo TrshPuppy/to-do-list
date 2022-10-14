@@ -11,7 +11,6 @@ import {
 } from "date-fns";
 
 let currentTabLoader = loadAll;
-// let currentProject =
 
 // Returns a built element based on interval and projectsArray[]:
 function buildTab(hipHip, interval, divId, headingText) {
