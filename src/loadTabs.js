@@ -18,11 +18,12 @@ let currentTabLoader = loadToday;
 // Returns a built element based on interval and projectsArray[]:
 function buildTab(hipHip, interval, divId, headingText) {
   const intervalToDos = hipHip.flatMap((project) =>
-    project.getAllToDosInInterval(interval)
+    project.getAllToDosInInterval(interval).map((toDo) => ({ toDo, project }))
   );
 
   const intervalToDosUI = intervalToDos.reduce(
-    (virtualUl, toDo) => virtualUl.addChild(toDo.buildVirtualBoi()),
+    (virtualUl, toDoObject) =>
+      virtualUl.addChild(toDoObject.toDo.buildVirtualBoi(toDoObject.project)),
     new Element("ul").setAttributes({ id: "today" })
   );
 

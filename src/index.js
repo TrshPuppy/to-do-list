@@ -1,5 +1,3 @@
-// GET RID OF PROJECT.BUILDVIRTUALBOI B/C it may not be being used in newar future (depending on how you want to do load all tabs)
-
 // Imports
 import "./stylesheet.css";
 import {
@@ -190,10 +188,6 @@ export function appendCurrentToDoBtn() {
       .appendEventListener("click", (e) => handleAddToDo(e, currentProject))
       .buildElement()
   );
-
-  // check if currentproject is real
-  // if it is
-  //    append a button to contentdiv thats related to the project and adds a to do when pressed
 }
 
 // Event Listeners:
