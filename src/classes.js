@@ -8,8 +8,8 @@ export default class Project {
     this.lists = [];
   }
 
-  appendList(list) {
-    this.lists.push(list);
+  appendToDo(toDo) {
+    this.lists.push(toDo);
   }
 
   removeList(list) {
@@ -36,7 +36,7 @@ export default class Project {
               class: "add-list-btn",
               id: `${this.name}-add-list-btn`,
             })
-            .appendEventListener("click", (e) => handleAddList(e, this))
+            .appendEventListener("click", (e) => handleAddToDo(e, this))
             .setTextContent("Add list")
         )
     );

@@ -33,42 +33,42 @@ const projectsTabBtn = document.querySelector(".projects-tab");
 let addProjectForm;
 
 // Test cases
-let testProject = new Project("My Project", undefined);
-let testList = new List("My Project List");
-let testToDo1 = new ToDo("My 1st To Do", "high", false, new Date());
-let testToDo2 = new ToDo(
-  "tigOlBitties",
-  "low",
-  true,
-  new Date("November 5, 2022")
-);
-let testToDo3 = new ToDo("test-2", "low", true, new Date("October 5, 2022"));
+// let testProject = new Project("My Project", undefined);
+// let testList = new List("My Project List");
+// let testToDo1 = new ToDo("My 1st To Do", "high", false, new Date());
+// let testToDo2 = new ToDo(
+//   "tigOlBitties",
+//   "low",
+//   true,
+//   new Date("November 5, 2022")
+// );
+// let testToDo3 = new ToDo("test-2", "low", true, new Date("October 5, 2022"));
 
-testList.appendItemToListArray(testToDo1);
-testList.appendItemToListArray(testToDo2);
-testList.appendItemToListArray(testToDo3);
+// testList.appendItemToListArray(testToDo1);
+// testList.appendItemToListArray(testToDo2);
+// testList.appendItemToListArray(testToDo3);
 
-testProject.appendList(testList);
-Librarian.addProject(testProject);
+// testProject.appendList(testList);
+// Librarian.addProject(testProject);
 
-let tiddies = new Project("My Tiddies Project", undefined);
-let testList2 = new List("My Tiddies List");
-let testToDo4 = new ToDo("Bake a Pie", "high", false, new Date());
-let testToDo5 = new ToDo(
-  "tigOlBitties",
-  "low",
-  true,
-  new Date("November 26, 2022")
-);
-let testToDo6 = new ToDo("test-2", "low", true, new Date("October 11, 2022"));
+// let tiddies = new Project("My Tiddies Project", undefined);
+// let testList2 = new List("My Tiddies List");
+// let testToDo4 = new ToDo("Bake a Pie", "high", false, new Date());
+// let testToDo5 = new ToDo(
+//   "tigOlBitties",
+//   "low",
+//   true,
+//   new Date("November 26, 2022")
+// );
+// let testToDo6 = new ToDo("test-2", "low", true, new Date("October 11, 2022"));
 
-testList2.appendItemToListArray(testToDo4);
-testList2.appendItemToListArray(testToDo5);
-testList2.appendItemToListArray(testToDo6);
+// testList2.appendItemToListArray(testToDo4);
+// testList2.appendItemToListArray(testToDo5);
+// testList2.appendItemToListArray(testToDo6);
 
-tiddies.appendList(testList2);
-Librarian.addProject(tiddies);
-contentDiv.appendChild(loadAll(Librarian.getAllProjects()).buildElement());
+// tiddies.appendList(testList2);
+// Librarian.addProject(tiddies);
+// contentDiv.appendChild(loadAll(Librarian.getAllProjects()).buildElement());
 // END TEST
 
 // On Page Load
@@ -117,7 +117,7 @@ export function handleAddList(e, project) {
   e.target.parentElement.appendChild(newListForm);
 }
 
-export function handleNewToDoSubmit(list) {
+export function handleNewToDoSubmit(project) {
   let addToDoForm = document.querySelector("#add-todo-form");
 
   const newToDo = new ToDo(
@@ -127,14 +127,15 @@ export function handleNewToDoSubmit(list) {
     addToDoForm["due-date"].value
   );
 
-  list.appendItemToListArray(newToDo);
+  // list.appendItemToListArray(newToDo);
+  project.appendToDo(newToDo);
 
   rebuildCurrentTab(getSelectedProjects(), contentDiv);
-  // canHasGUI(currentTab);
+  console.log(Librarian.getAllProjects());
 }
 
-export function handleAddToDo(e, list) {
-  const ā̷̔r̴͐́ť̷͊h̶̙̊v̸̍͆ả̸͘d̷̎̄r̴̄͂r̸̀̐_̶̅͝ẇ̸̑a̵̬̎ș̴̃_̴̄̒h̵̽̐ȩ̴̑ŕ̵̄ë̶́̕ = displayToDoForm(list);
+export function handleAddToDo(e, project) {
+  const ā̷̔r̴͐́ť̷͊h̶̙̊v̸̍͆ả̸͘d̷̎̄r̴̄͂r̸̀̐_̶̅͝ẇ̸̑a̵̬̎ș̴̃_̴̄̒h̵̽̐ȩ̴̑ŕ̵̄ë̶́̕ = displayToDoForm(project);
   e.target.parentElement.appendChild(ā̷̔r̴͐́ť̷͊h̶̙̊v̸̍͆ả̸͘d̷̎̄r̴̄͂r̸̀̐_̶̅͝ẇ̸̑a̵̬̎ș̴̃_̴̄̒h̵̽̐ȩ̴̑ŕ̵̄ë̶́̕);
 }
 

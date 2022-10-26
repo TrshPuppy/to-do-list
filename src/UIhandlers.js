@@ -57,7 +57,7 @@ export function displayListForm(project) {
     .buildElement();
 }
 
-export function displayToDoForm(list) {
+export function displayToDoForm(project) {
   return new Element("form")
     .setAttributes({ class: "form", id: "add-todo-form" })
     .addChild(
@@ -106,7 +106,7 @@ export function displayToDoForm(list) {
           class: "form-btn",
           id: "todo-form-btn",
         })
-        .appendEventListener("click", (e) => handleNewToDoSubmit(list))
+        .appendEventListener("click", (e) => handleNewToDoSubmit(project))
         .setTextContent("Submit")
     )
     .buildElement();
