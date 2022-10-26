@@ -1,27 +1,18 @@
-import { handleAddList, handleAddToDo, handleEditToDo } from "./index";
-import { removeItemFromArray } from "./utilities";
+import { handleAddToDo, handleEditToDo } from "./index";
 import { isWithinInterval, parse, format, isValid, isMatch } from "date-fns";
 export default class Project {
   constructor(name, id) {
     this.name = name;
     this.id = id;
-    this.lists = [];
+    this.toDos = [];
   }
 
   appendToDo(toDo) {
-    this.lists.push(toDo);
-  }
-
-  removeList(list) {
-    removeItemFromArray(list, this.lists);
-  }
-
-  editDetails(detailType) {
-    editItemDetail(this, detailType);
+    this.toDos.push(toDo);
   }
 
   buildVirtualBoi() {
-    return this.lists.reduce(
+    return this.toDos.reduce(
       (virtualProject, list) => virtualProject.addChild(list.buildVirtualBoi()),
       new Element("div")
         .setAttributes({
@@ -42,53 +33,12 @@ export default class Project {
     );
   }
 
-  getAllTasksInInterval(interval) {
-    return this.lists.flatMap((list) => list.getAllToDosInInterval(interval));
-  }
-}
-
-export class List {
-  constructor(listName) {
-    this.name = listName;
-    this.listItems = [];
-    this.priority;
-  }
-
-  buildVirtualBoi() {
-    return this.listItems.reduce(
-      (virtualUl, toDo) => virtualUl.addChild(toDo.buildVirtualBoi()),
-      new Element("ul")
-        .setAttributes({
-          id: this.name,
-        })
-        .addChild(
-          new Element("button")
-            .setAttributes({
-              type: "button",
-              class: "add-todo-btn",
-              id: `${this.name}-add-todo-btn`,
-            })
-            .setTextContent("Add to do item")
-            .appendEventListener("click", (e) => handleAddToDo(e, this))
-        )
-    );
-  }
-
-  appendItemToListArray(item) {
-    this.listItems.push(item);
-  }
-
-  removeItemFromListArray(item) {
-    removeItemFromArray(item, this.listItems);
-  }
-
   getAllToDosInInterval(interval) {
-    return this.listItems.filter(
+    return this.toDos.filter(
       (toDo) => !toDo.date || isWithinInterval(toDo.date, interval)
     );
   }
 }
-
 export class ToDo {
   constructor(name, priority, isCompleted, date) {
     this.name = name;
@@ -215,5 +165,3 @@ export class Librarian {
     Librarian.projectsArray.push(project);
   }
 }
-
-// virtualBoi cleanButStainedTupperware

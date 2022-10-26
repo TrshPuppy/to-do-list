@@ -14,13 +14,12 @@ import {
 
 import {
   default as displayProjectForm,
-  displayListForm,
   displayToDoForm,
   displayEditToDoForm,
 } from "./UIhandlers";
 
 import { rebuildProjectFormContainer } from "./utilities";
-import { default as Project, Element, List, ToDo, Librarian } from "./classes";
+import { default as Project, Element, ToDo, Librarian } from "./classes";
 
 // Globals:
 const contentDiv = document.querySelector(".content");
@@ -33,26 +32,24 @@ const projectsTabBtn = document.querySelector(".projects-tab");
 let addProjectForm;
 
 // Test cases
-// let testProject = new Project("My Project", undefined);
-// let testList = new List("My Project List");
-// let testToDo1 = new ToDo("My 1st To Do", "high", false, new Date());
-// let testToDo2 = new ToDo(
-//   "tigOlBitties",
-//   "low",
-//   true,
-//   new Date("November 5, 2022")
-// );
-// let testToDo3 = new ToDo("test-2", "low", true, new Date("October 5, 2022"));
+let testProject = new Project("My Project", undefined);
 
-// testList.appendItemToListArray(testToDo1);
-// testList.appendItemToListArray(testToDo2);
-// testList.appendItemToListArray(testToDo3);
+let testToDo1 = new ToDo("My 1st To Do", "high", false, new Date());
+let testToDo2 = new ToDo(
+  "tigOlBitties",
+  "low",
+  true,
+  new Date("November 5, 2022")
+);
+let testToDo3 = new ToDo("test-2", "low", true, new Date("October 5, 2022"));
 
-// testProject.appendList(testList);
-// Librarian.addProject(testProject);
+testProject.appendToDo(testToDo1);
+testProject.appendToDo(testToDo2);
+testProject.appendToDo(testToDo3);
+Librarian.addProject(testProject);
 
 // let tiddies = new Project("My Tiddies Project", undefined);
-// let testList2 = new List("My Tiddies List");
+// // let testList2 = new List("My Tiddies List");
 // let testToDo4 = new ToDo("Bake a Pie", "high", false, new Date());
 // let testToDo5 = new ToDo(
 //   "tigOlBitties",
@@ -68,7 +65,7 @@ let addProjectForm;
 
 // tiddies.appendList(testList2);
 // Librarian.addProject(tiddies);
-// contentDiv.appendChild(loadAll(Librarian.getAllProjects()).buildElement());
+contentDiv.appendChild(loadAll(Librarian.getAllProjects()).buildElement());
 // END TEST
 
 // On Page Load
@@ -102,21 +99,6 @@ function handleAddProject() {
   });
 }
 
-// export function handleNewListSubmit(e, project) {
-//   let contentDiv = document.querySelector(".content");
-
-//   let listFormInput = document.querySelector("#list-name");
-//   const newList = new List(listFormInput.value);
-//   project.appendList(newList);
-
-//   rebuildCurrentTab(getSelectedProjects(), contentDiv);
-// }
-
-// export function handleAddList(e, project) {
-//   const newListForm = displayListForm(project);
-//   e.target.parentElement.appendChild(newListForm);
-// }
-
 export function handleNewToDoSubmit(project) {
   let addToDoForm = document.querySelector("#add-todo-form");
 
@@ -127,7 +109,6 @@ export function handleNewToDoSubmit(project) {
     addToDoForm["due-date"].value
   );
 
-  // list.appendItemToListArray(newToDo);
   project.appendToDo(newToDo);
 
   rebuildCurrentTab(getSelectedProjects(), contentDiv);
