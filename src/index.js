@@ -126,7 +126,10 @@ export function handleEditToDoSubmit(toDoItem) {
   toDoItem.name = editToDoForm["todo-name"].value;
   toDoItem.priority = editToDoForm["priority"].value;
   toDoItem.isCompleted = editToDoForm["completed"].value;
-  toDoItem.date = editToDoForm["due-date"].value;
+
+  if (ToDo.isEnteredDateValid(editToDoForm["due-date"].value)) {
+    toDoItem.date = editToDoForm["due-date"].value;
+  }
 
   rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
 }
@@ -188,6 +191,8 @@ export function appendCurrentToDoBtn() {
       .buildElement()
   );
 }
+
+export function handleDeleteToDo(e, toDo, project) {}
 
 // Event Listeners:
 projectBtn.addEventListener("click", handleAddProject);
