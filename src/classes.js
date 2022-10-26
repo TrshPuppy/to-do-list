@@ -11,27 +11,27 @@ export default class Project {
     this.toDos.push(toDo);
   }
 
-  buildVirtualBoi() {
-    return this.toDos.reduce(
-      (virtualProject, list) => virtualProject.addChild(list.buildVirtualBoi()),
-      new Element("div")
-        .setAttributes({
-          class: "project",
-          id: `Project-${this.id}`,
-        })
-        .addChild(new Element("h1").setTextContent(`${this.name}`))
-        .addChild(
-          new Element("button")
-            .setAttributes({
-              type: "button",
-              class: "add-list-btn",
-              id: `${this.name}-add-list-btn`,
-            })
-            .appendEventListener("click", (e) => handleAddToDo(e, this))
-            .setTextContent("Add to-do")
-        )
-    );
-  }
+  // buildVirtualBoi() {
+  //   return this.toDos.reduce(
+  //     (virtualProject, list) => virtualProject.addChild(list.buildVirtualBoi()),
+  //     new Element("div")
+  //       .setAttributes({
+  //         class: "project",
+  //         id: `Project-${this.id}`,
+  //       })
+  //       .addChild(new Element("h1").setTextContent(`${this.name}`))
+  //       .addChild(
+  //         new Element("button")
+  //           .setAttributes({
+  //             type: "button",
+  //             class: "add-list-btn",
+  //             id: `${this.name}-add-list-btn`,
+  //           })
+  //           .appendEventListener("click", (e) => handleAddToDo(e, this))
+  //           .setTextContent("Add to-do")
+  //       )
+  //   );
+  // }
 
   getAllToDosInInterval(interval) {
     return this.toDos.filter(

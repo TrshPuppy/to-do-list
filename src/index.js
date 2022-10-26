@@ -65,10 +65,11 @@ Librarian.addProject(testProject);
 
 // tiddies.appendList(testList2);
 // Librarian.addProject(tiddies);
-contentDiv.appendChild(loadAll(Librarian.getAllProjects()).buildElement());
+// contentDiv.appendChild(loadAll(Librarian.getAllProjects()).buildElement());
 // END TEST
 
 // On Page Load
+rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
 rebuildProjectListContainer(contentDiv);
 let currentProject = undefined;
 
@@ -189,6 +190,7 @@ monthTabBtn.addEventListener("click", () =>
 yearTabBtn.addEventListener("click", () =>
   rebuildTab(getSelectedProjects(), loadYear, contentDiv)
 );
-projectsTabBtn.addEventListener("click", () =>
-  rebuildTab(Librarian.getAllProjects(), loadAll, contentDiv)
-);
+
+// projectsTabBtn.addEventListener("click", () =>
+//   rebuildTab(Librarian.getAllProjects(), loadAll, contentDiv)
+// );

@@ -10,7 +10,7 @@ import {
   endOfYear,
 } from "date-fns";
 
-let currentTabLoader = loadAll;
+let currentTabLoader = loadToday;
 
 // Returns a built element based on interval and projectsArray[]:
 function buildTab(hipHip, interval, divId, headingText) {
@@ -83,11 +83,11 @@ export function loadYear(projectsArray) {
   return buildTab(projectsArray, interval, "year-tab", "This Year");
 }
 
-export function loadAll(projectsArray) {
-  currentTabLoader = loadAll;
+// export function loadAll(projectsArray) {
+//   currentTabLoader = loadAll;
 
-  return projectsArray.reduce(
-    (virtualDiv, project) => virtualDiv.addChild(project.buildVirtualBoi()),
-    new Element("div").setAttributes({ class: "all-projects" })
-  );
-}
+//   return projectsArray.reduce(
+//     (virtualDiv, project) => virtualDiv.addChild(project.buildVirtualBoi()),
+//     new Element("div").setAttributes({ class: "all-projects" })
+//   );
+// }
