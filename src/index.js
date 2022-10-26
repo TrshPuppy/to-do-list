@@ -8,7 +8,7 @@ import {
   loadWeek,
   loadMonth,
   loadYear,
-  loadAll,
+  loadAllTime,
   rebuildTab,
 } from "./loadTabs";
 
@@ -22,13 +22,15 @@ import { rebuildProjectFormContainer } from "./utilities";
 import { default as Project, Element, ToDo, Librarian } from "./classes";
 
 // Globals:
+let currentProject;
 const contentDiv = document.querySelector(".content");
 const projectBtn = document.querySelector(".add-project-btn");
 const todayTabBtn = document.querySelector(".today-tab");
 const weekTabBtn = document.querySelector(".week-tab");
 const monthTabBtn = document.querySelector(".month-tab");
 const yearTabBtn = document.querySelector(".year-tab");
-const projectsTabBtn = document.querySelector(".projects-tab");
+const allTimeTabBtn = document.querySelector(".all-time-tab");
+// const projectsTabBtn = document.querySelector(".projects-tab");
 let addProjectForm;
 
 // Test cases
@@ -71,7 +73,7 @@ Librarian.addProject(testProject);
 // On Page Load
 rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
 rebuildProjectListContainer(contentDiv);
-let currentProject = undefined;
+currentProject = undefined;
 
 // Functions:
 function handleNewProjectSubmit() {
@@ -176,6 +178,24 @@ export function getSelectedProjects() {
   }
 }
 
+export function appendCurrentToDoBtn() {
+  if (!currentProject) {
+    return;
+  }
+
+  contentDiv.appendChild(
+    new Element("button")
+      .setAttributes({ class: "add-to-do-btn" })
+      .setTextContent("Add To Do Item")
+      .appendEventListener("click", (e) => handleAddToDo(e, currentProject))
+      .buildElement()
+  );
+
+  // check if currentproject is real
+  // if it is
+  //    append a button to contentdiv thats related to the project and adds a to do when pressed
+}
+
 // Event Listeners:
 projectBtn.addEventListener("click", handleAddProject);
 todayTabBtn.addEventListener("click", () =>
@@ -190,7 +210,9 @@ monthTabBtn.addEventListener("click", () =>
 yearTabBtn.addEventListener("click", () =>
   rebuildTab(getSelectedProjects(), loadYear, contentDiv)
 );
-
+allTimeTabBtn.addEventListener("click", () =>
+  rebuildTab(getSelectedProjects(), loadAllTime, contentDiv)
+);
 // projectsTabBtn.addEventListener("click", () =>
 //   rebuildTab(Librarian.getAllProjects(), loadAll, contentDiv)
 // );

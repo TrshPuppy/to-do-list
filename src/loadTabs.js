@@ -1,4 +1,5 @@
 import { Element } from "./classes";
+import { appendCurrentToDoBtn } from "./index";
 import {
   startOfToday,
   startOfWeek,
@@ -8,6 +9,8 @@ import {
   endOfMonth,
   startOfYear,
   endOfYear,
+  maxTime,
+  minTime,
 } from "date-fns";
 
 let currentTabLoader = loadToday;
@@ -34,7 +37,7 @@ function buildTab(hipHip, interval, divId, headingText) {
 
 export function rebuildTab(projectsArray, loaderFunc, contentDiv) {
   contentDiv.textContent = "";
-
+  appendCurrentToDoBtn();
   contentDiv.appendChild(loaderFunc(projectsArray).buildElement());
 }
 
@@ -83,11 +86,10 @@ export function loadYear(projectsArray) {
   return buildTab(projectsArray, interval, "year-tab", "This Year");
 }
 
-// export function loadAll(projectsArray) {
-//   currentTabLoader = loadAll;
+export function loadAllTime(projectsArray) {
+  currentTabLoader = loadAllTime;
 
-//   return projectsArray.reduce(
-//     (virtualDiv, project) => virtualDiv.addChild(project.buildVirtualBoi()),
-//     new Element("div").setAttributes({ class: "all-projects" })
-//   );
-// }
+  const interval = { start: new Date(minTime), end: new Date(maxTime) };
+
+  return buildTab(projectsArray, interval, "all-time-tab", "All Time");
+}
