@@ -1,6 +1,6 @@
 import { handleAddList, handleAddToDo, handleEditToDo } from "./index";
 import { removeItemFromArray } from "./utilities";
-import { isWithinInterval, parse, format } from "date-fns";
+import { isWithinInterval, parse, format, isValid, isMatch } from "date-fns";
 export default class Project {
   constructor(name, id) {
     this.name = name;
@@ -114,11 +114,7 @@ export class ToDo {
     cleanButStainedTupperware
       .addChild(new Element("h1").setTextContent(this.name))
       .addChild(new Element("h2").setTextContent(`Priority: ${this.priority}`))
-      .addChild(
-        new Element("p").setTextContent(
-          format(new Date(this.date), "EEEE dd MMM y")
-        )
-      )
+      .addChild(new Element("p").setTextContent(this.getFormattedDate()))
       .addChild(
         new Element("p").setTextContent(`Completed: ${this.isCompleted}`)
       )
@@ -132,8 +128,9 @@ export class ToDo {
     return cleanButStainedTupperware;
   }
 
-  editDueDate() {}
-  // edit: name, priority, completed, date
+  getFormattedDate() {
+    return isValid(this.date) ? format(this.date, "EEEE dd MMM y") : "";
+  }
 }
 
 export class Element {

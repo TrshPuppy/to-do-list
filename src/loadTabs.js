@@ -42,10 +42,6 @@ export function rebuildCurrentTab(projectsArray, contentDiv) {
   rebuildTab(projectsArray, currentTabLoader, contentDiv);
 }
 
-export function rebuildTabRTProject(e, project) {
-  console.log(project);
-}
-
 // Creates interval of range within today to be used by buildTab()
 export default function loadToday(projectsArray) {
   currentTabLoader = loadToday;

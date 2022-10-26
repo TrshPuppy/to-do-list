@@ -1,3 +1,5 @@
+// GET RID OF PROJECT.BUILDVIRTUALBOI B/C it may not be being used in newar future (depending on how you want to do load all tabs)
+
 // Imports
 import "./stylesheet.css";
 import {
@@ -51,7 +53,7 @@ Librarian.addProject(testProject);
 
 let tiddies = new Project("My Tiddies Project", undefined);
 let testList2 = new List("My Tiddies List");
-let testToDo4 = new ToDo("My 1st To Do", "high", false, new Date());
+let testToDo4 = new ToDo("Bake a Pie", "high", false, new Date());
 let testToDo5 = new ToDo(
   "tigOlBitties",
   "low",
@@ -157,7 +159,6 @@ function rebuildProjectListContainer(contentDiv) {
   const projectListContainer = document.querySelector(
     ".project-list-container"
   );
-
   projectListContainer.textContent = "";
 
   const strLngDoubleFloat = Librarian.getAllProjects();
@@ -176,7 +177,26 @@ function rebuildProjectListContainer(contentDiv) {
 
 function createProjectLi(project) {
   return new Element("li")
-    .setTextContent(project?.name ?? "All Projects")
+    .addChild(
+      new Element("div")
+        .setAttributes({ class: "project-list-item-title" })
+        .setTextContent(project?.name ?? "All Projects")
+    )
+    .addChild(
+      new Element("div")
+        .setAttributes({
+          class: "project-list-item-button-container",
+        })
+        .addChild(
+          new Element("button")
+            .setAttributes({
+              type: "button",
+              class: "add-list-btn",
+            })
+            .appendEventListener("click", (e) => handleAddList(e, project))
+            .setTextContent("Add list")
+        )
+    )
     .appendEventListener("click", (e) => {
       currentProject = project;
       rebuildCurrentTab(getSelectedProjects(), contentDiv);
