@@ -102,20 +102,20 @@ function handleAddProject() {
   });
 }
 
-export function handleNewListSubmit(e, project) {
-  let contentDiv = document.querySelector(".content");
+// export function handleNewListSubmit(e, project) {
+//   let contentDiv = document.querySelector(".content");
 
-  let listFormInput = document.querySelector("#list-name");
-  const newList = new List(listFormInput.value);
-  project.appendList(newList);
+//   let listFormInput = document.querySelector("#list-name");
+//   const newList = new List(listFormInput.value);
+//   project.appendList(newList);
 
-  rebuildCurrentTab(getSelectedProjects(), contentDiv);
-}
+//   rebuildCurrentTab(getSelectedProjects(), contentDiv);
+// }
 
-export function handleAddList(e, project) {
-  const newListForm = displayListForm(project);
-  e.target.parentElement.appendChild(newListForm);
-}
+// export function handleAddList(e, project) {
+//   const newListForm = displayListForm(project);
+//   e.target.parentElement.appendChild(newListForm);
+// }
 
 export function handleNewToDoSubmit(project) {
   let addToDoForm = document.querySelector("#add-todo-form");
@@ -178,26 +178,8 @@ function rebuildProjectListContainer(contentDiv) {
 
 function createProjectLi(project) {
   return new Element("li")
-    .addChild(
-      new Element("div")
-        .setAttributes({ class: "project-list-item-title" })
-        .setTextContent(project?.name ?? "All Projects")
-    )
-    .addChild(
-      new Element("div")
-        .setAttributes({
-          class: "project-list-item-button-container",
-        })
-        .addChild(
-          new Element("button")
-            .setAttributes({
-              type: "button",
-              class: "add-list-btn",
-            })
-            .appendEventListener("click", (e) => handleAddList(e, project))
-            .setTextContent("Add list")
-        )
-    )
+    .setAttributes({ class: "project-list-item" })
+    .setTextContent(project?.name ?? "All Projects")
     .appendEventListener("click", (e) => {
       currentProject = project;
       rebuildCurrentTab(getSelectedProjects(), contentDiv);

@@ -37,7 +37,7 @@ export default class Project {
               id: `${this.name}-add-list-btn`,
             })
             .appendEventListener("click", (e) => handleAddToDo(e, this))
-            .setTextContent("Add list")
+            .setTextContent("Add to-do")
         )
     );
   }
