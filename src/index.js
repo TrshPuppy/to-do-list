@@ -113,7 +113,6 @@ export function handleNewToDoSubmit(project) {
   project.appendToDo(newToDo);
 
   rebuildCurrentTab(getSelectedProjects(), contentDiv);
-  console.log(Librarian.getAllProjects());
 }
 
 export function handleAddToDo(e, project) {

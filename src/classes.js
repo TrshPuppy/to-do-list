@@ -58,6 +58,10 @@ export class ToDo {
     return this.dueDate;
   }
 
+  get dateString() {
+    return format(this.dueDate, "yyyy-MM-dd");
+  }
+
   buildVirtualBoi(project) {
     const cleanButStainedTupperware = new Element("li");
     cleanButStainedTupperware
