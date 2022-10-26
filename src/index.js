@@ -14,13 +14,12 @@ import {
 
 import {
   default as displayProjectForm,
-  displayListForm,
   displayToDoForm,
   displayEditToDoForm,
 } from "./UIhandlers";
 
 import { rebuildProjectFormContainer } from "./utilities";
-import { default as Project, Element, List, ToDo, Librarian } from "./classes";
+import { default as Project, Element, ToDo, Librarian } from "./classes";
 
 // Globals:
 const contentDiv = document.querySelector(".content");
@@ -34,7 +33,7 @@ let addProjectForm;
 
 // Test cases
 let testProject = new Project("My Project", undefined);
-let testList = new List("My Project List");
+
 let testToDo1 = new ToDo("My 1st To Do", "high", false, new Date());
 let testToDo2 = new ToDo(
   "tigOlBitties",
@@ -44,30 +43,28 @@ let testToDo2 = new ToDo(
 );
 let testToDo3 = new ToDo("test-2", "low", true, new Date("October 5, 2022"));
 
-testList.appendItemToListArray(testToDo1);
-testList.appendItemToListArray(testToDo2);
-testList.appendItemToListArray(testToDo3);
-
-testProject.appendList(testList);
+testProject.appendToDo(testToDo1);
+testProject.appendToDo(testToDo2);
+testProject.appendToDo(testToDo3);
 Librarian.addProject(testProject);
 
-let tiddies = new Project("My Tiddies Project", undefined);
-let testList2 = new List("My Tiddies List");
-let testToDo4 = new ToDo("Bake a Pie", "high", false, new Date());
-let testToDo5 = new ToDo(
-  "tigOlBitties",
-  "low",
-  true,
-  new Date("November 26, 2022")
-);
-let testToDo6 = new ToDo("test-2", "low", true, new Date("October 11, 2022"));
+// let tiddies = new Project("My Tiddies Project", undefined);
+// // let testList2 = new List("My Tiddies List");
+// let testToDo4 = new ToDo("Bake a Pie", "high", false, new Date());
+// let testToDo5 = new ToDo(
+//   "tigOlBitties",
+//   "low",
+//   true,
+//   new Date("November 26, 2022")
+// );
+// let testToDo6 = new ToDo("test-2", "low", true, new Date("October 11, 2022"));
 
-testList2.appendItemToListArray(testToDo4);
-testList2.appendItemToListArray(testToDo5);
-testList2.appendItemToListArray(testToDo6);
+// testList2.appendItemToListArray(testToDo4);
+// testList2.appendItemToListArray(testToDo5);
+// testList2.appendItemToListArray(testToDo6);
 
-tiddies.appendList(testList2);
-Librarian.addProject(tiddies);
+// tiddies.appendList(testList2);
+// Librarian.addProject(tiddies);
 contentDiv.appendChild(loadAll(Librarian.getAllProjects()).buildElement());
 // END TEST
 
@@ -102,22 +99,7 @@ function handleAddProject() {
   });
 }
 
-export function handleNewListSubmit(e, project) {
-  let contentDiv = document.querySelector(".content");
-
-  let listFormInput = document.querySelector("#list-name");
-  const newList = new List(listFormInput.value);
-  project.appendList(newList);
-
-  rebuildCurrentTab(getSelectedProjects(), contentDiv);
-}
-
-export function handleAddList(e, project) {
-  const newListForm = displayListForm(project);
-  e.target.parentElement.appendChild(newListForm);
-}
-
-export function handleNewToDoSubmit(list) {
+export function handleNewToDoSubmit(project) {
   let addToDoForm = document.querySelector("#add-todo-form");
 
   const newToDo = new ToDo(
@@ -127,14 +109,14 @@ export function handleNewToDoSubmit(list) {
     addToDoForm["due-date"].value
   );
 
-  list.appendItemToListArray(newToDo);
+  project.appendToDo(newToDo);
 
   rebuildCurrentTab(getSelectedProjects(), contentDiv);
-  // canHasGUI(currentTab);
+  console.log(Librarian.getAllProjects());
 }
 
-export function handleAddToDo(e, list) {
-  const ā̷̔r̴͐́ť̷͊h̶̙̊v̸̍͆ả̸͘d̷̎̄r̴̄͂r̸̀̐_̶̅͝ẇ̸̑a̵̬̎ș̴̃_̴̄̒h̵̽̐ȩ̴̑ŕ̵̄ë̶́̕ = displayToDoForm(list);
+export function handleAddToDo(e, project) {
+  const ā̷̔r̴͐́ť̷͊h̶̙̊v̸̍͆ả̸͘d̷̎̄r̴̄͂r̸̀̐_̶̅͝ẇ̸̑a̵̬̎ș̴̃_̴̄̒h̵̽̐ȩ̴̑ŕ̵̄ë̶́̕ = displayToDoForm(project);
   e.target.parentElement.appendChild(ā̷̔r̴͐́ť̷͊h̶̙̊v̸̍͆ả̸͘d̷̎̄r̴̄͂r̸̀̐_̶̅͝ẇ̸̑a̵̬̎ș̴̃_̴̄̒h̵̽̐ȩ̴̑ŕ̵̄ë̶́̕);
 }
 
@@ -177,26 +159,8 @@ function rebuildProjectListContainer(contentDiv) {
 
 function createProjectLi(project) {
   return new Element("li")
-    .addChild(
-      new Element("div")
-        .setAttributes({ class: "project-list-item-title" })
-        .setTextContent(project?.name ?? "All Projects")
-    )
-    .addChild(
-      new Element("div")
-        .setAttributes({
-          class: "project-list-item-button-container",
-        })
-        .addChild(
-          new Element("button")
-            .setAttributes({
-              type: "button",
-              class: "add-list-btn",
-            })
-            .appendEventListener("click", (e) => handleAddList(e, project))
-            .setTextContent("Add list")
-        )
-    )
+    .setAttributes({ class: "project-list-item" })
+    .setTextContent(project?.name ?? "All Projects")
     .appendEventListener("click", (e) => {
       currentProject = project;
       rebuildCurrentTab(getSelectedProjects(), contentDiv);

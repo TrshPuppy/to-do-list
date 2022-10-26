@@ -1,14 +1,4 @@
-import { getSelectedProjects } from ".";
-import { Librarian } from "./classes";
 import { Element } from "./classes";
-import { rebuildCurrentTab, rebuildTabRTProject } from "./loadTabs";
-
-let contentDiv;
-
-export function removeItemFromArray(item, array) {
-  let indexToRemove = array.indexOf(item);
-  array.splice(indexToRemove, 1);
-}
 
 export function rebuildProjectFormContainer() {
   const formContainer = document.querySelector(".form-container");
