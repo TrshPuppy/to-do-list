@@ -11,27 +11,27 @@ export default class Project {
     this.toDos.push(toDo);
   }
 
-  buildVirtualBoi() {
-    return this.toDos.reduce(
-      (virtualProject, list) => virtualProject.addChild(list.buildVirtualBoi()),
-      new Element("div")
-        .setAttributes({
-          class: "project",
-          id: `Project-${this.id}`,
-        })
-        .addChild(new Element("h1").setTextContent(`${this.name}`))
-        .addChild(
-          new Element("button")
-            .setAttributes({
-              type: "button",
-              class: "add-list-btn",
-              id: `${this.name}-add-list-btn`,
-            })
-            .appendEventListener("click", (e) => handleAddToDo(e, this))
-            .setTextContent("Add to-do")
-        )
-    );
-  }
+  // buildVirtualBoi() {
+  //   return this.toDos.reduce(
+  //     (virtualProject, list) => virtualProject.addChild(list.buildVirtualBoi()),
+  //     new Element("div")
+  //       .setAttributes({
+  //         class: "project",
+  //         id: `Project-${this.id}`,
+  //       })
+  //       .addChild(new Element("h1").setTextContent(`${this.name}`))
+  //       .addChild(
+  //         new Element("button")
+  //           .setAttributes({
+  //             type: "button",
+  //             class: "add-list-btn",
+  //             id: `${this.name}-add-list-btn`,
+  //           })
+  //           .appendEventListener("click", (e) => handleAddToDo(e, this))
+  //           .setTextContent("Add to-do")
+  //       )
+  //   );
+  // }
 
   getAllToDosInInterval(interval) {
     return this.toDos.filter(
@@ -48,7 +48,6 @@ export class ToDo {
   }
 
   set date(newDate) {
-    // YOU ARE HERE: UTC VS LOCAL LOOK AT THIS BIOTCH: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset
     this.dueDate =
       typeof newDate === "string"
         ? parse(newDate, "yyyy-MM-dd", new Date())
@@ -59,11 +58,16 @@ export class ToDo {
     return this.dueDate;
   }
 
-  buildVirtualBoi() {
+  get dateString() {
+    return format(this.dueDate, "yyyy-MM-dd");
+  }
+
+  buildVirtualBoi(project) {
     const cleanButStainedTupperware = new Element("li");
     cleanButStainedTupperware
-      .addChild(new Element("h1").setTextContent(this.name))
-      .addChild(new Element("h2").setTextContent(`Priority: ${this.priority}`))
+      .addChild(new Element("h2").setTextContent(this.name))
+      .addChild(new Element("h3").setTextContent(`Priority: ${this.priority}`))
+      .addChild(new Element("h4").setTextContent(`Project: ${project.name}`))
       .addChild(new Element("p").setTextContent(this.getFormattedDate()))
       .addChild(
         new Element("p").setTextContent(`Completed: ${this.isCompleted}`)

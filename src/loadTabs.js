@@ -1,4 +1,5 @@
 import { Element } from "./classes";
+import { appendCurrentToDoBtn } from "./index";
 import {
   startOfToday,
   startOfWeek,
@@ -8,18 +9,21 @@ import {
   endOfMonth,
   startOfYear,
   endOfYear,
+  maxTime,
+  minTime,
 } from "date-fns";
 
-let currentTabLoader = loadAll;
+let currentTabLoader = loadToday;
 
 // Returns a built element based on interval and projectsArray[]:
 function buildTab(hipHip, interval, divId, headingText) {
   const intervalToDos = hipHip.flatMap((project) =>
-    project.getAllToDosInInterval(interval)
+    project.getAllToDosInInterval(interval).map((toDo) => ({ toDo, project }))
   );
 
   const intervalToDosUI = intervalToDos.reduce(
-    (virtualUl, toDo) => virtualUl.addChild(toDo.buildVirtualBoi()),
+    (virtualUl, toDoObject) =>
+      virtualUl.addChild(toDoObject.toDo.buildVirtualBoi(toDoObject.project)),
     new Element("ul").setAttributes({ id: "today" })
   );
 
@@ -34,7 +38,7 @@ function buildTab(hipHip, interval, divId, headingText) {
 
 export function rebuildTab(projectsArray, loaderFunc, contentDiv) {
   contentDiv.textContent = "";
-
+  appendCurrentToDoBtn();
   contentDiv.appendChild(loaderFunc(projectsArray).buildElement());
 }
 
@@ -83,11 +87,10 @@ export function loadYear(projectsArray) {
   return buildTab(projectsArray, interval, "year-tab", "This Year");
 }
 
-export function loadAll(projectsArray) {
-  currentTabLoader = loadAll;
+export function loadAllTime(projectsArray) {
+  currentTabLoader = loadAllTime;
 
-  return projectsArray.reduce(
-    (virtualDiv, project) => virtualDiv.addChild(project.buildVirtualBoi()),
-    new Element("div").setAttributes({ class: "all-projects" })
-  );
+  const interval = { start: new Date(minTime), end: new Date(maxTime) };
+
+  return buildTab(projectsArray, interval, "all-time-tab", "All Time");
 }

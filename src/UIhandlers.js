@@ -1,8 +1,8 @@
 import { Element } from "./classes";
-import { handleEditToDoSubmit, handleNewListSubmit } from "./index";
+import { handleEditToDoSubmit } from "./index";
 import { handleNewToDoSubmit } from "./index";
 import { createFormDiv } from "./utilities";
-import { startOfYear } from "date-fns";
+import { format, startOfYear } from "date-fns";
 
 export default function displayProjectForm() {
   if (!document.querySelector(".form")) {
@@ -110,7 +110,7 @@ export function displayEditToDoForm(toDoItem) {
         type: "date",
         id: "due-date",
         name: "due-date",
-        value: `${toDoItem.date}`,
+        value: toDoItem.dateString,
         min: `${startOfYear(new Date())}`,
         max: "undefined",
       })

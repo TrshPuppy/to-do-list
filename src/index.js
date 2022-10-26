@@ -1,5 +1,3 @@
-// GET RID OF PROJECT.BUILDVIRTUALBOI B/C it may not be being used in newar future (depending on how you want to do load all tabs)
-
 // Imports
 import "./stylesheet.css";
 import {
@@ -8,7 +6,7 @@ import {
   loadWeek,
   loadMonth,
   loadYear,
-  loadAll,
+  loadAllTime,
   rebuildTab,
 } from "./loadTabs";
 
@@ -22,13 +20,15 @@ import { rebuildProjectFormContainer } from "./utilities";
 import { default as Project, Element, ToDo, Librarian } from "./classes";
 
 // Globals:
+let currentProject;
 const contentDiv = document.querySelector(".content");
 const projectBtn = document.querySelector(".add-project-btn");
 const todayTabBtn = document.querySelector(".today-tab");
 const weekTabBtn = document.querySelector(".week-tab");
 const monthTabBtn = document.querySelector(".month-tab");
 const yearTabBtn = document.querySelector(".year-tab");
-const projectsTabBtn = document.querySelector(".projects-tab");
+const allTimeTabBtn = document.querySelector(".all-time-tab");
+// const projectsTabBtn = document.querySelector(".projects-tab");
 let addProjectForm;
 
 // Test cases
@@ -65,12 +65,13 @@ Librarian.addProject(testProject);
 
 // tiddies.appendList(testList2);
 // Librarian.addProject(tiddies);
-contentDiv.appendChild(loadAll(Librarian.getAllProjects()).buildElement());
+// contentDiv.appendChild(loadAll(Librarian.getAllProjects()).buildElement());
 // END TEST
 
 // On Page Load
+rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
 rebuildProjectListContainer(contentDiv);
-let currentProject = undefined;
+currentProject = undefined;
 
 // Functions:
 function handleNewProjectSubmit() {
@@ -112,7 +113,6 @@ export function handleNewToDoSubmit(project) {
   project.appendToDo(newToDo);
 
   rebuildCurrentTab(getSelectedProjects(), contentDiv);
-  console.log(Librarian.getAllProjects());
 }
 
 export function handleAddToDo(e, project) {
@@ -175,6 +175,20 @@ export function getSelectedProjects() {
   }
 }
 
+export function appendCurrentToDoBtn() {
+  if (!currentProject) {
+    return;
+  }
+
+  contentDiv.appendChild(
+    new Element("button")
+      .setAttributes({ class: "add-to-do-btn" })
+      .setTextContent("Add To Do Item")
+      .appendEventListener("click", (e) => handleAddToDo(e, currentProject))
+      .buildElement()
+  );
+}
+
 // Event Listeners:
 projectBtn.addEventListener("click", handleAddProject);
 todayTabBtn.addEventListener("click", () =>
@@ -189,6 +203,9 @@ monthTabBtn.addEventListener("click", () =>
 yearTabBtn.addEventListener("click", () =>
   rebuildTab(getSelectedProjects(), loadYear, contentDiv)
 );
-projectsTabBtn.addEventListener("click", () =>
-  rebuildTab(Librarian.getAllProjects(), loadAll, contentDiv)
+allTimeTabBtn.addEventListener("click", () =>
+  rebuildTab(getSelectedProjects(), loadAllTime, contentDiv)
 );
+// projectsTabBtn.addEventListener("click", () =>
+//   rebuildTab(Librarian.getAllProjects(), loadAll, contentDiv)
+// );
