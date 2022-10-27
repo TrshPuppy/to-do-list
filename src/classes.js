@@ -156,4 +156,8 @@ export class Librarian {
   static addProject(project) {
     Librarian.projectsArray.push(project);
   }
+
+  static deleteProject(project) {
+    Librarian.projectsArray.splice(Librarian.projectsArray.indexOf(project), 1);
+  }
 }

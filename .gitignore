@@ -1,7 +1,7 @@
 # ignore the world's largest directory
 node_modules/
 .cache/
-dist/
+# dist/
 .env
 .DS_Store
 coverage/
