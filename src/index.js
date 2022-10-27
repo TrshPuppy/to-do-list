@@ -1,4 +1,4 @@
-// Imports TIDDIEs
+// Imports
 import "./stylesheet.css";
 import {
   default as loadToday,
@@ -28,7 +28,7 @@ const weekTabBtn = document.querySelector(".week-tab");
 const monthTabBtn = document.querySelector(".month-tab");
 const yearTabBtn = document.querySelector(".year-tab");
 const allTimeTabBtn = document.querySelector(".all-time-tab");
-// const projectsTabBtn = document.querySelector(".projects-tab");
+
 let addProjectForm;
 
 // Test cases
