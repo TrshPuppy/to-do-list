@@ -64,9 +64,7 @@ export class ToDo {
         new Element("button")
           .setAttributes({ type: "button", id: "delete-todo-btn" })
           .setTextContent("Delete")
-          .appendEventListener("click", (e) =>
-            handleDeleteToDo(e, this, project)
-          )
+          .appendEventListener("click", () => handleDeleteToDo(this, project))
       );
 
     return cleanButStainedTupperware;
