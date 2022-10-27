@@ -100,17 +100,22 @@ function handleAddProject() {
   });
 }
 
-export function handleNewToDoSubmit(project) {
+export function handleNewToDoSubmit(context) {
   let addToDoForm = document.querySelector("#add-todo-form");
+  let newToDoDate = new Date();
+
+  if (ToDo.isEnteredDateValid(addToDoForm["due-date"].value)) {
+    newToDoDate = addToDoForm["due-date"].value;
+  }
 
   const newToDo = new ToDo(
     addToDoForm["todo-name"].value,
     addToDoForm["priority"].value,
     addToDoForm["completed"].value,
-    addToDoForm["due-date"].value
+    newToDoDate
   );
 
-  project.appendToDo(newToDo);
+  context.appendToDo(newToDo);
 
   rebuildCurrentTab(getSelectedProjects(), contentDiv);
 }
