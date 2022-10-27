@@ -1,5 +1,5 @@
 import { Element } from "./classes";
-import { appendCurrentToDoBtn } from "./index";
+import { appendCurrentProjectBtns } from "./index";
 import {
   startOfToday,
   startOfWeek,
@@ -38,7 +38,7 @@ function buildTab(hipHip, interval, divId, headingText) {
 
 export function rebuildTab(projectsArray, loaderFunc, contentDiv) {
   contentDiv.textContent = "";
-  appendCurrentToDoBtn();
+  appendCurrentProjectBtns();
   contentDiv.appendChild(loaderFunc(projectsArray).buildElement());
 }
 
