@@ -32,9 +32,9 @@ const allTimeTabBtn = document.querySelector(".all-time-tab");
 let addProjectForm;
 
 // Test cases
-let testProject = new Project("My Project", undefined);
+const testProject = new Project("My Project", undefined);
 
-let testToDo1 = new ToDo("My 1st To Do", "high", false, new Date());
+let testToDo1 = new ToDo("My tiddies To Do", "high", false, new Date());
 let testToDo2 = new ToDo(
   "tigOlBitties",
   "low",
