@@ -126,6 +126,7 @@ export function handleAddToDo(e, project) {
 }
 
 export function handleEditToDoSubmit(toDoItem) {
+  // HELLO
   let editToDoForm = document.querySelector("#edit-todo-form");
 
   toDoItem.name = editToDoForm["todo-name"].value;
