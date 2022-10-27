@@ -200,7 +200,11 @@ export function appendCurrentToDoBtn() {
 export function handleDeleteToDo(e, toDo, project) {
   project.toDos.splice(project.toDos.indexOf(toDo), 1);
   console.log(project.toDos);
-  rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
+  if (!currentProject) {
+    rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
+  } else {
+    rebuildCurrentTab([project], contentDiv);
+  }
 }
 
 // Event Listeners:
@@ -220,6 +224,3 @@ yearTabBtn.addEventListener("click", () =>
 allTimeTabBtn.addEventListener("click", () =>
   rebuildTab(getSelectedProjects(), loadAllTime, contentDiv)
 );
-// projectsTabBtn.addEventListener("click", () =>
-//   rebuildTab(Librarian.getAllProjects(), loadAll, contentDiv)
-// );
