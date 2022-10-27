@@ -1,4 +1,4 @@
-// Imports
+// Imports TIDDIEs
 import "./stylesheet.css";
 import {
   default as loadToday,
