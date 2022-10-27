@@ -1,4 +1,4 @@
-import { handleAddToDo, handleEditToDo } from "./index";
+import { handleAddToDo, handleEditToDo, handleDeleteToDo } from "./index";
 import { isWithinInterval, parse, format, isValid, isMatch } from "date-fns";
 export default class Project {
   constructor(name, id) {
@@ -10,28 +10,6 @@ export default class Project {
   appendToDo(toDo) {
     this.toDos.push(toDo);
   }
-
-  // buildVirtualBoi() {
-  //   return this.toDos.reduce(
-  //     (virtualProject, list) => virtualProject.addChild(list.buildVirtualBoi()),
-  //     new Element("div")
-  //       .setAttributes({
-  //         class: "project",
-  //         id: `Project-${this.id}`,
-  //       })
-  //       .addChild(new Element("h1").setTextContent(`${this.name}`))
-  //       .addChild(
-  //         new Element("button")
-  //           .setAttributes({
-  //             type: "button",
-  //             class: "add-list-btn",
-  //             id: `${this.name}-add-list-btn`,
-  //           })
-  //           .appendEventListener("click", (e) => handleAddToDo(e, this))
-  //           .setTextContent("Add to-do")
-  //       )
-  //   );
-  // }
 
   getAllToDosInInterval(interval) {
     return this.toDos.filter(
@@ -59,7 +37,11 @@ export class ToDo {
   }
 
   get dateString() {
-    return format(this.dueDate, "yyyy-MM-dd");
+    return isValid(this.date) ? format(this.date, "yyyy-MM-dd") : "";
+  }
+
+  static isEnteredDateValid(dateToCheck) {
+    return isMatch(dateToCheck, "yyyy-MM-dd");
   }
 
   buildVirtualBoi(project) {
@@ -75,8 +57,14 @@ export class ToDo {
       .addChild(
         new Element("button")
           .setAttributes({ type: "button", id: "edit-todo-btn" })
-          .setTextContent("Edit this to do item")
-          .appendEventListener("click", (e) => handleEditToDo(e, this))
+          .setTextContent("Edit")
+          .appendEventListener("click", (e) => handleEditToDo(e, this, project))
+      )
+      .addChild(
+        new Element("button")
+          .setAttributes({ type: "button", id: "delete-todo-btn" })
+          .setTextContent("Delete")
+          .appendEventListener("click", () => handleDeleteToDo(this, project))
       );
 
     return cleanButStainedTupperware;
