@@ -197,7 +197,7 @@ export function appendCurrentToDoBtn() {
   );
 }
 
-export function handleDeleteToDo(e, toDo, project) {
+export function handleDeleteToDo(toDo, project) {
   project.toDos.splice(project.toDos.indexOf(toDo), 1);
   console.log(project.toDos);
   if (!currentProject) {
