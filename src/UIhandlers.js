@@ -78,13 +78,13 @@ export function displayToDoForm(project) {
     .addChild(
       new Element("button")
         .setAttributes({
-          type: "button",
+          type: "submit",
           class: "form-btn",
           id: "todo-form-btn",
         })
-        .appendEventListener("click", (e) => handleNewToDoSubmit(project))
         .setTextContent("Submit")
     )
+    .appendEventListener("submit", (e) => handleNewToDoSubmit(project, e))
     .buildElement();
 }
 
@@ -142,12 +142,12 @@ export function displayEditToDoForm(toDoItem) {
     .addChild(
       new Element("button")
         .setAttributes({
-          type: "button",
+          type: "submit",
           class: "form-btn",
           id: "todo-form-btn",
         })
-        .appendEventListener("click", (e) => handleEditToDoSubmit(toDoItem))
         .setTextContent("Submit")
     )
+    .appendEventListener("submit", (e) => handleEditToDoSubmit(toDoItem, e))
     .buildElement();
 }

@@ -101,7 +101,8 @@ export function handleAddProject() {
   // });
 }
 
-export function handleNewToDoSubmit(context) {
+export function handleNewToDoSubmit(context, e) {
+  e.preventDefault();
   let addToDoForm = document.querySelector("#add-todo-form");
   let newToDoDate = new Date();
 
@@ -126,8 +127,8 @@ export function handleAddToDo(e, project) {
   e.target.parentElement.appendChild(ā̷̔r̴͐́ť̷͊h̶̙̊v̸̍͆ả̸͘d̷̎̄r̴̄͂r̸̀̐_̶̅͝ẇ̸̑a̵̬̎ș̴̃_̴̄̒h̵̽̐ȩ̴̑ŕ̵̄ë̶́̕);
 }
 
-export function handleEditToDoSubmit(toDoItem) {
-  // HELLO
+export function handleEditToDoSubmit(toDoItem, e) {
+  e.preventDefault();
   let editToDoForm = document.querySelector("#edit-todo-form");
 
   toDoItem.name = editToDoForm["todo-name"].value;
