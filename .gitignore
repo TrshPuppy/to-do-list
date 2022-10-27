@@ -1,2 +1,8 @@
 # ignore the world's largest directory
-node_modules
+node_modules/
+.cache/
+dist/
+.env
+.DS_Store
+coverage/
+.vscode/
