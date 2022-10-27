@@ -1,5 +1,5 @@
 import { Element } from "./classes";
-import { handleEditToDoSubmit } from "./index";
+import { handleEditToDoSubmit, handleNewProjectSubmit } from "./index";
 import { handleNewToDoSubmit } from "./index";
 import { createFormDiv } from "./utilities";
 import { format, startOfYear } from "date-fns";
@@ -20,12 +20,13 @@ export default function displayProjectForm() {
       .addChild(
         new Element("button")
           .setAttributes({
-            type: "button",
+            type: "submit",
             class: "form-btn",
             id: "project-form-btn",
           })
           .setTextContent("Submit")
       )
+      .appendEventListener("submit", (e) => handleNewProjectSubmit(e))
       .buildElement();
   } else {
     return;
@@ -77,13 +78,13 @@ export function displayToDoForm(project) {
     .addChild(
       new Element("button")
         .setAttributes({
-          type: "button",
+          type: "submit",
           class: "form-btn",
           id: "todo-form-btn",
         })
-        .appendEventListener("click", (e) => handleNewToDoSubmit(project))
         .setTextContent("Submit")
     )
+    .appendEventListener("submit", (e) => handleNewToDoSubmit(project, e))
     .buildElement();
 }
 
@@ -141,12 +142,12 @@ export function displayEditToDoForm(toDoItem) {
     .addChild(
       new Element("button")
         .setAttributes({
-          type: "button",
+          type: "submit",
           class: "form-btn",
           id: "todo-form-btn",
         })
-        .appendEventListener("click", (e) => handleEditToDoSubmit(toDoItem))
         .setTextContent("Submit")
     )
+    .appendEventListener("submit", (e) => handleEditToDoSubmit(toDoItem, e))
     .buildElement();
 }

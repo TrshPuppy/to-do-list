@@ -34,7 +34,7 @@ let addProjectForm;
 // Test cases
 let testProject = new Project("My Project", undefined);
 
-let testToDo1 = new ToDo("My 1st To Do", "high", false, new Date());
+let testToDo1 = new ToDo("My tiddies1st To Do", "high", false, new Date());
 let testToDo2 = new ToDo(
   "tigOlBitties",
   "low",
@@ -74,7 +74,8 @@ rebuildProjectListContainer();
 currentProject = undefined;
 
 // Functions:
-function handleNewProjectSubmit() {
+export function handleNewProjectSubmit(e) {
+  e.preventDefault();
   let projectFormInput = document.querySelector("#project-name");
 
   // Make project and give to Librarian
@@ -87,7 +88,7 @@ function handleNewProjectSubmit() {
   rebuildCurrentTab(getSelectedProjects(), contentDiv);
 }
 
-function handleAddProject() {
+export function handleAddProject() {
   addProjectForm = displayProjectForm();
 
   let formContainer = document.querySelector(".form-container");
@@ -95,12 +96,13 @@ function handleAddProject() {
 
   const projectSubmitBtn = document.querySelector("#project-form-btn");
 
-  projectSubmitBtn.addEventListener("click", () => {
-    handleNewProjectSubmit();
-  });
+  // projectSubmitBtn.addEventListener("click", () => {
+  //   handleNewProjectSubmit();
+  // });
 }
 
-export function handleNewToDoSubmit(context) {
+export function handleNewToDoSubmit(context, e) {
+  e.preventDefault();
   let addToDoForm = document.querySelector("#add-todo-form");
   let newToDoDate = new Date();
 
@@ -125,8 +127,8 @@ export function handleAddToDo(e, project) {
   e.target.parentElement.appendChild(ā̷̔r̴͐́ť̷͊h̶̙̊v̸̍͆ả̸͘d̷̎̄r̴̄͂r̸̀̐_̶̅͝ẇ̸̑a̵̬̎ș̴̃_̴̄̒h̵̽̐ȩ̴̑ŕ̵̄ë̶́̕);
 }
 
-export function handleEditToDoSubmit(toDoItem) {
-  // HELLO
+export function handleEditToDoSubmit(toDoItem, e) {
+  e.preventDefault();
   let editToDoForm = document.querySelector("#edit-todo-form");
 
   toDoItem.name = editToDoForm["todo-name"].value;
@@ -226,6 +228,14 @@ export function handleDeleteToDo(toDo, gimmieMoreTiddies) {
 
 // Event Listeners:
 projectBtn.addEventListener("click", handleAddProject);
+// projectBtn.addEventListener("keydown", (e) => {
+//   // if (e.key === "Enter") {
+//   //   handleAddProject();
+//   // }
+
+//   console.log(e);
+// });
+
 todayTabBtn.addEventListener("click", () =>
   rebuildTab(getSelectedProjects(), loadToday, contentDiv)
 );
