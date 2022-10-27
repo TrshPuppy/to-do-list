@@ -70,7 +70,7 @@ Librarian.addProject(testProject);
 
 // On Page Load
 rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
-rebuildProjectListContainer(contentDiv);
+rebuildProjectListContainer();
 currentProject = undefined;
 
 // Functions:
@@ -83,7 +83,7 @@ function handleNewProjectSubmit() {
 
   // Rebuild UI
   rebuildProjectFormContainer();
-  rebuildProjectListContainer(contentDiv);
+  rebuildProjectListContainer();
   rebuildCurrentTab(getSelectedProjects(), contentDiv);
 }
 
@@ -100,17 +100,22 @@ function handleAddProject() {
   });
 }
 
-export function handleNewToDoSubmit(project) {
+export function handleNewToDoSubmit(context) {
   let addToDoForm = document.querySelector("#add-todo-form");
+  let newToDoDate = new Date();
+
+  if (ToDo.isEnteredDateValid(addToDoForm["due-date"].value)) {
+    newToDoDate = addToDoForm["due-date"].value;
+  }
 
   const newToDo = new ToDo(
     addToDoForm["todo-name"].value,
     addToDoForm["priority"].value,
     addToDoForm["completed"].value,
-    addToDoForm["due-date"].value
+    newToDoDate
   );
 
-  project.appendToDo(newToDo);
+  context.appendToDo(newToDo);
 
   rebuildCurrentTab(getSelectedProjects(), contentDiv);
 }
@@ -126,7 +131,10 @@ export function handleEditToDoSubmit(toDoItem) {
   toDoItem.name = editToDoForm["todo-name"].value;
   toDoItem.priority = editToDoForm["priority"].value;
   toDoItem.isCompleted = editToDoForm["completed"].value;
-  toDoItem.date = editToDoForm["due-date"].value;
+
+  if (ToDo.isEnteredDateValid(editToDoForm["due-date"].value)) {
+    toDoItem.date = editToDoForm["due-date"].value;
+  }
 
   rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
 }
@@ -137,7 +145,7 @@ export function handleEditToDo(e, toDoItem) {
   e.target.parentElement.appendChild(editToDoForm);
 }
 
-function rebuildProjectListContainer(contentDiv) {
+function rebuildProjectListContainer() {
   const projectListContainer = document.querySelector(
     ".project-list-container"
   );
@@ -189,6 +197,16 @@ export function appendCurrentToDoBtn() {
   );
 }
 
+export function handleDeleteToDo(toDo, project) {
+  project.toDos.splice(project.toDos.indexOf(toDo), 1);
+  console.log(project.toDos);
+  if (!currentProject) {
+    rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
+  } else {
+    rebuildCurrentTab([project], contentDiv);
+  }
+}
+
 // Event Listeners:
 projectBtn.addEventListener("click", handleAddProject);
 todayTabBtn.addEventListener("click", () =>
@@ -206,6 +224,3 @@ yearTabBtn.addEventListener("click", () =>
 allTimeTabBtn.addEventListener("click", () =>
   rebuildTab(getSelectedProjects(), loadAllTime, contentDiv)
 );
-// projectsTabBtn.addEventListener("click", () =>
-//   rebuildTab(Librarian.getAllProjects(), loadAll, contentDiv)
-// );
