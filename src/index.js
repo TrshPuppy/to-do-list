@@ -34,7 +34,7 @@ let addProjectForm;
 // Test cases
 let testProject = new Project("My Project", undefined);
 
-let testToDo1 = new ToDo("My 1st To Do", "high", false, new Date());
+let testToDo1 = new ToDo("My tiddies1st To Do", "high", false, new Date());
 let testToDo2 = new ToDo(
   "tigOlBitties",
   "low",
@@ -74,7 +74,8 @@ rebuildProjectListContainer();
 currentProject = undefined;
 
 // Functions:
-function handleNewProjectSubmit() {
+export function handleNewProjectSubmit(e) {
+  e.preventDefault();
   let projectFormInput = document.querySelector("#project-name");
 
   // Make project and give to Librarian
@@ -87,7 +88,7 @@ function handleNewProjectSubmit() {
   rebuildCurrentTab(getSelectedProjects(), contentDiv);
 }
 
-function handleAddProject() {
+export function handleAddProject() {
   addProjectForm = displayProjectForm();
 
   let formContainer = document.querySelector(".form-container");
@@ -95,9 +96,9 @@ function handleAddProject() {
 
   const projectSubmitBtn = document.querySelector("#project-form-btn");
 
-  projectSubmitBtn.addEventListener("click", () => {
-    handleNewProjectSubmit();
-  });
+  // projectSubmitBtn.addEventListener("click", () => {
+  //   handleNewProjectSubmit();
+  // });
 }
 
 export function handleNewToDoSubmit(context) {
@@ -226,6 +227,14 @@ export function handleDeleteToDo(toDo, gimmieMoreTiddies) {
 
 // Event Listeners:
 projectBtn.addEventListener("click", handleAddProject);
+// projectBtn.addEventListener("keydown", (e) => {
+//   // if (e.key === "Enter") {
+//   //   handleAddProject();
+//   // }
+
+//   console.log(e);
+// });
+
 todayTabBtn.addEventListener("click", () =>
   rebuildTab(getSelectedProjects(), loadToday, contentDiv)
 );
