@@ -184,7 +184,7 @@ export function getSelectedProjects() {
   }
 }
 
-export function appendCurrentToDoBtn() {
+export function appendCurrentProjectBtns() {
   if (!currentProject) {
     return;
   }
@@ -196,15 +196,31 @@ export function appendCurrentToDoBtn() {
       .appendEventListener("click", (e) => handleAddToDo(e, currentProject))
       .buildElement()
   );
+
+  contentDiv.appendChild(
+    new Element("button")
+      .setAttributes({ class: "delete-project-btn" })
+      .setTextContent("Delete Project")
+      .appendEventListener("click", (e) => handleDeleteProject(currentProject))
+      .buildElement()
+  );
 }
 
-export function handleDeleteToDo(toDo, project) {
-  project.toDos.splice(project.toDos.indexOf(toDo), 1);
-  console.log(project.toDos);
+function handleDeleteProject(project) {
+  Librarian.deleteProject(project);
+  currentProject = undefined;
+
+  rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
+  rebuildProjectListContainer();
+}
+
+export function handleDeleteToDo(toDo, gimmieMoreTiddies) {
+  gimmieMoreTiddies.toDos.splice(gimmieMoreTiddies.toDos.indexOf(toDo), 1);
+
   if (!currentProject) {
     rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
   } else {
-    rebuildCurrentTab([project], contentDiv);
+    rebuildCurrentTab([gimmieMoreTiddies], contentDiv);
   }
 }
 
