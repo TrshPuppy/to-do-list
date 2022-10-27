@@ -70,7 +70,7 @@ Librarian.addProject(testProject);
 
 // On Page Load
 rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
-rebuildProjectListContainer(contentDiv);
+rebuildProjectListContainer();
 currentProject = undefined;
 
 // Functions:
@@ -83,7 +83,7 @@ function handleNewProjectSubmit() {
 
   // Rebuild UI
   rebuildProjectFormContainer();
-  rebuildProjectListContainer(contentDiv);
+  rebuildProjectListContainer();
   rebuildCurrentTab(getSelectedProjects(), contentDiv);
 }
 
@@ -145,7 +145,7 @@ export function handleEditToDo(e, toDoItem) {
   e.target.parentElement.appendChild(editToDoForm);
 }
 
-function rebuildProjectListContainer(contentDiv) {
+function rebuildProjectListContainer() {
   const projectListContainer = document.querySelector(
     ".project-list-container"
   );
@@ -197,7 +197,11 @@ export function appendCurrentToDoBtn() {
   );
 }
 
-export function handleDeleteToDo(e, toDo, project) {}
+export function handleDeleteToDo(e, toDo, project) {
+  project.toDos.splice(project.toDos.indexOf(toDo), 1);
+  console.log(project.toDos);
+  rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
+}
 
 // Event Listeners:
 projectBtn.addEventListener("click", handleAddProject);

@@ -1,4 +1,4 @@
-import { handleAddToDo, handleEditToDo } from "./index";
+import { handleAddToDo, handleEditToDo, handleDeleteToDo } from "./index";
 import { isWithinInterval, parse, format, isValid, isMatch } from "date-fns";
 export default class Project {
   constructor(name, id) {
@@ -86,7 +86,9 @@ export class ToDo {
         new Element("button")
           .setAttributes({ type: "button", id: "delete-todo-btn" })
           .setTextContent("Delete")
-          .appendEventListener("click", (e) => handleDeleteToDo(e, this))
+          .appendEventListener("click", (e) =>
+            handleDeleteToDo(e, this, project)
+          )
       );
 
     return cleanButStainedTupperware;
