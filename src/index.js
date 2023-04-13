@@ -48,26 +48,6 @@ testProject.appendToDo(testToDo2);
 testProject.appendToDo(testToDo3);
 Librarian.addProject(testProject);
 
-// let tiddies = new Project("My Tiddies Project", undefined);
-// // let testList2 = new List("My Tiddies List");
-// let testToDo4 = new ToDo("Bake a Pie", "high", false, new Date());
-// let testToDo5 = new ToDo(
-//   "tigOlBitties",
-//   "low",
-//   true,
-//   new Date("November 26, 2022")
-// );
-// let testToDo6 = new ToDo("test-2", "low", true, new Date("October 11, 2022"));
-
-// testList2.appendItemToListArray(testToDo4);
-// testList2.appendItemToListArray(testToDo5);
-// testList2.appendItemToListArray(testToDo6);
-
-// tiddies.appendList(testList2);
-// Librarian.addProject(tiddies);
-// contentDiv.appendChild(loadAll(Librarian.getAllProjects()).buildElement());
-// END TEST
-
 // On Page Load
 rebuildCurrentTab(Librarian.getAllProjects(), contentDiv);
 rebuildProjectListContainer();
@@ -202,6 +182,18 @@ export function appendCurrentProjectBtns() {
       .setAttributes({ class: "delete-project-btn" })
       .setTextContent("Delete Project")
       .appendEventListener("click", (e) => handleDeleteProject(currentProject))
+      .buildElement()
+  );
+}
+
+export function appendCurrentProjectName() {
+  if (!currentProject) {
+    return;
+  }
+  contentDiv.appendChild(
+    new Element("h3")
+      .setAttributes({ class: "project-title-header" })
+      .setTextContent(currentProject.name)
       .buildElement()
   );
 }

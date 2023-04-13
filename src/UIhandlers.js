@@ -2,7 +2,7 @@ import { Element } from "./classes";
 import { handleEditToDoSubmit } from "./index";
 import { handleNewToDoSubmit } from "./index";
 import { createFormDiv } from "./utilities";
-import { format, startOfYear } from "date-fns";
+import { startOfYear } from "date-fns";
 
 export default function displayProjectForm() {
   if (!document.querySelector(".form")) {

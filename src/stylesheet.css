@@ -1,5 +1,6 @@
 body {
-  --bg-color-main: rgb(211, 187, 247);
+  --bg-color-main: rgb(223, 204, 250);
+  --bg-color-main-hover: rgb(231, 221, 247);
   --bg-light: rgb(249, 248, 250);
   --bg-gray: rgb(150, 146, 146);
   --text-color-main: rgb(2, 2, 2);
@@ -28,6 +29,12 @@ h1 {
 }
 .panel h1 {
   margin: calc(7.5vh / 2) 0;
+}
+h2 {
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+}
+h3 {
+  font-size: clamp(1.2rem, 1.2vw, 1.2rem);
 }
 
 .panel {
@@ -65,15 +72,19 @@ button {
   border-style: none;
   padding: 8px;
   border-radius: 3px;
+  margin: 8px;
 }
 button:active {
   background-color: pink;
 }
+
 .nav button {
   align-self: flex-end;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   margin-right: clamp(5px, 3.5vw, 50px);
+  margin-bottom: 0;
+  margin-left: 0;
   padding: clamp(5px, 2vw, 10px);
   padding-bottom: 0;
   background-color: var(--bg-color-main);
@@ -89,12 +100,12 @@ button:active {
   padding: 10px;
 }
 
-.project {
+/* .project {
   display: flex;
   flex-flow: row nowrap;
   align-items: flex-start;
   width: 100%;
-}
+} */
 
 .date-tab {
   display: flex;
@@ -122,5 +133,16 @@ li {
   background-color: var(--bg-gray);
   width: clamp(25ch, 5vw, 35ch);
   margin: 20px;
-  border-radius: 3px;
+  border-radius: 5px;
+  text-align: center;
+}
+.project-list-item {
+  background-color: var(--bg-color-main);
+  padding: 5px;
+}
+.project-list-item:hover {
+  background-color: var(--bg-color-main-hover);
+}
+.project-list-item:active {
+  background-color: var(--bg-gray);
 }

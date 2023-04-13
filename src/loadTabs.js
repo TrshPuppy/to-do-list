@@ -1,5 +1,5 @@
 import { Element } from "./classes";
-import { appendCurrentProjectBtns } from "./index";
+import { appendCurrentProjectBtns, appendCurrentProjectName } from "./index";
 import {
   startOfToday,
   startOfWeek,
@@ -32,12 +32,17 @@ function buildTab(hipHip, interval, divId, headingText) {
       class: "date-tab",
       id: divId,
     })
-    .addChild(new Element("h1").setTextContent(headingText))
+    .addChild(
+      new Element("h4")
+        .setTextContent(headingText)
+        .setAttributes({ class: "date-tab-header" })
+    )
     .addChild(intervalToDosUI);
 }
 
 export function rebuildTab(projectsArray, loaderFunc, contentDiv) {
   contentDiv.textContent = "";
+  appendCurrentProjectName();
   appendCurrentProjectBtns();
   contentDiv.appendChild(loaderFunc(projectsArray).buildElement());
 }
